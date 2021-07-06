@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('vistas.login');
+    return view('welcome');
 });
 Route::get('/registro', function () {
     return view("vistas.registro");
