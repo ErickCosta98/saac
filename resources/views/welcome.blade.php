@@ -1,1 +1,8 @@
-@extends('layouts.plantilla')
+@extends('layouts.plantillaL')
+
+
+
+
+@section('contenido')
+
+@endsection
