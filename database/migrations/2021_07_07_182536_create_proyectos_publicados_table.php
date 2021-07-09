@@ -14,7 +14,7 @@ class CreateProyectosPublicadosTable extends Migration
     public function up()
     {
         Schema::create('proyectos_publicados', function (Blueprint $table) {
-            $table->id('');
+            $table->id();
             $table->string('ruta');
             $table->timestamps();
         });

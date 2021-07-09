@@ -6,24 +6,24 @@
     <div class="row">
       <h3 style="text-align: center;">Lista de usuarios</h3>
     </div>    
-    <div class="row">
-  </div>
+    <div class="row mb-1">
     <form action="{{ route('userSearch') }}"   method="post">
       @csrf
     <b class="h5">Nombre:</b> <input class="form" type="text" name="busqueda" id="busqueda" value="{{old('busqueda')}}">
-    <input name="enviar" id="enviar" class="btn btn-info" type="submit" value="Buscar">
-    
-  </form>
-    <div class="row table-reponsive">
+    <input name="enviar" id="enviar" class="btn btn-primary" type="submit" value="Buscar">
+</form>
+    </div>
+
+    <div class="row table-reponsive mx-auto" >
   <table class="table table-light table-striped">
     <thead class="thead-light">
       <tr>
         <th>id</th>
         <th>Usuario</th>
         <th>Nombre</th>
-        <th>estado</th>
-        @can('userAmin')
-        <th>modificar</th>
+        <th>Roles</th>
+        @can('userAdmin')
+        <th>Modificar</th>
         <th>Modificar estado</th>  
         @endcan
    
@@ -31,43 +31,32 @@
     </thead>
     <tbody>
     @foreach ( $users as $user )
-    @can('userAdmin')
-    @if (Auth::user()->usuario != $user->usuario )      
+    @can('userAdmin')   
     <tr>
     <td>{{$user->id}}</td>
     <td>{{$user->usuario}}</td>
     <td>{{$user->nombre}}</td>
-    @if ($user->estatus == 1)
-        <td>Activo</td>
-    @else
-    <td>Inactivo</td>
-    @endif
+    <td>{{$user->getRoleNames()}}</td>
     @can('userAdmin')
-    <td><a href="{{ route('userEdit', $user->id) }}" class="btn btn-info btn-block">Editar</a></td>  
+    <td><a href="{{ route('userEdit', $user->id) }}" class="btn btn-warning btn-block">Editar</a></td>  
     @if ($user->estatus == 1)
-    <td><a id='btnBorrar' href="{{ route('userDelete', $user->id) }}" class="btn btn-danger btn-block" >Desactivar</a></td>
+    <td><a id='btnBorrar' href="{{ route('userDelete', $user->id) }}" class="btn btn-success btn-block" >Activo</a></td>
     @else
-    <td><a id='btnActive' href="{{ route('userActive', $user->id) }}" class="btn btn-success btn-block" >Activar</a></td>
-    @endif
+    <td><a id='btnActive' href="{{ route('userActive', $user->id) }}" class="btn btn-danger btn-block" >Inactivo</a></td>
     @endcan
 @endif
     @elsecan('registroUsuario')
-    @if (Auth::user()->usuario != $user->usuario &&  !strpos($user->getRoleNames(),'Admin'))      
     <tr>
     <td>{{$user->id}}</td>
     <td>{{$user->usuario}}</td>
     <td>{{$user->nombre}}</td>
-    @if ($user->estatus == 1)
-        <td>Activo</td>
-    @else
-    <td>Inactivo</td>
-    @endif
-@endif
+    <td>{{$user->getRoleNames()}}</td>
     @endcan
     @endforeach
         </tr>
     </tbody>
   </table>
+  {{$users->links()}}
     </div>
   </div>
 @endsection

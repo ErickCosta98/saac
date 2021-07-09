@@ -54,5 +54,45 @@ class UserSeeder extends Seeder
             'usuario' => 'Erick@verificador',
             'password' => Hash::make('Ulili2098'),
         ])->syncRoles([5]);
+
+
+
+        User::create([
+            'nombre' => 'Erick',
+            'apelPat' =>  'Hernandez',
+            'apelMat'=> 'Costa',
+            'usuario' => 'Erick@1',
+        ])->syncRoles([3]);
+        User::create([
+            'nombre' => 'Erick',
+            'apelPat' =>  'Hernandez',
+            'apelMat'=> 'Costa',
+            'usuario' => 'Erick@2',
+        ])->syncRoles([3]);
+        User::create([
+            'nombre' => 'Erick',
+            'apelPat' =>  'Hernandez',
+            'apelMat'=> 'Costa',
+            'usuario' => 'Erick@3',
+        ])->syncRoles([3]);
+        User::create([
+            'nombre' => 'Erick',
+            'apelPat' =>  'Hernandez',
+            'apelMat'=> 'Costa',
+            'usuario' => 'Erick@4',
+        ])->syncRoles([3]);
+        User::create([
+            'nombre' => 'Erick',
+            'apelPat' =>  'Hernandez',
+            'apelMat'=> 'Costa',
+            'usuario' => 'Erick@5',
+        ])->syncRoles([3]);
+        User::create([
+            'nombre' => 'Erick',
+            'apelPat' =>  'Hernandez',
+            'apelMat'=> 'Costa',
+            'usuario' => 'Erick@6',
+        ])->syncRoles([3]);
+
     }
 }

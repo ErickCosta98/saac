@@ -26,7 +26,6 @@ class usuarios extends Controller
             'apelPat' => ['required', 'string', 'max:255'],
             'apelMat' => ['required', 'string', 'max:255'],
             'usuario' => ['required', 'string', 'max:20', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
         ]);
             User::create([
                 'nombre' => $request['nombre'],
@@ -71,9 +70,20 @@ class usuarios extends Controller
             return redirect('/');
         }
     
-        public function userList(){
-            $users = User::paginate();
-    
+        public function userList( ){
+            $auth = User::find(Auth::user()->id);
+            $users = "";
+            $roleN = $auth->getRoleNames();
+
+            foreach($roleN as $key => $rolen){ 
+                if($rolen == 'Admin'){ 
+                    $users = User::where('id','!=',$auth->id)->paginate(5);
+            return view('vistas.userList',compact('users'));
+                } 
+                } 
+                $users = User::where('id','!=',$auth->id)->permission('userProyecto')->paginate(5);
+                            // $a = User::;
+            // return $users;
             return view('vistas.userList',compact('users'));
         }
     
@@ -113,11 +123,22 @@ class usuarios extends Controller
     
     
         public function busqueda(Request $request){
-            
-            $users = User::where('nombre','LIKE','%'.$request['busqueda'].'%')->orWhere('usuario','LIKE','%'.$request['busqueda'].'%')->paginate();
-    
-            return view('userList',compact('users'));
+            $auth = User::find(Auth::user()->id);
+            $users = "";
+            $roleN = $auth->getRoleNames();
+
+            foreach($roleN as $key => $rolen){ 
+                if($rolen == 'Admin'){ 
+                    $users = User::where('id','!=',$auth->id)->orWhere('nombre','LIKE','%'.$request['busqueda'].'%')->orWhere('usuario','LIKE','%'.$request['busqueda'].'%')->paginate(5);
+            return view('vistas.userList',compact('users'));
+                } 
+                } 
+                $users = User::where('id','!=',$auth->id)->orWhere('nombre','LIKE','%'.$request['busqueda'].'%')->orWhere('usuario','LIKE','%'.$request['busqueda'].'%')->permission('userProyecto')->paginate(5);
+                            // $a = User::;
+            // return $users;
+            return view('vistas.userList',compact('users'));
         }
+        
         public function roles(){
             $roles= Role::all();
     
