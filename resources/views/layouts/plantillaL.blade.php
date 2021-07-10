@@ -99,10 +99,19 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{{ route('userList') }}">Lista</a>
+                                @can('userAdmin')
+                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Admin','busqueda'=>'']) }}">Lista</a>
+                                {{-- <form action="{{ route('usuarios.index') }}" method="get">
+                                    <input type="hidden" name="listas" id="lista" value="Admin">
+                                    <input type="hidden" name="busqueda" id="busqueda" value="">
+                                    <button class="link" type="submit">Lista</button>
+                                </form> --}}
+                                @endcan
                                 @can('registroUsuario')
-                                <a class="nav-link" href="{{ route('userRegistro') }}" class="btn btn-primary">Nuevo
-                                    registro</a>
+                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Alumno','busqueda'=>'']) }}">Lista Alumnos</a>
+                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Profesor','busqueda'=>'']) }}">Lista Profesores</a>
+                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Verificador','busqueda'=>'']) }}">Lista Verificador</a>
+                                <a class="nav-link" href="{{ route('userRegistro') }}" class="btn btn-primary">Nuevo registro</a>
                                 @endcan
                             </nav>
                         </div>

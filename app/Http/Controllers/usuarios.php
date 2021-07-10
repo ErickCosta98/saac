@@ -70,21 +70,21 @@ class usuarios extends Controller
             return redirect('/');
         }
     
-        public function userList( ){
+        public function index(Request $request){
             $auth = User::find(Auth::user()->id);
             $users = "";
             $roleN = $auth->getRoleNames();
-
-            foreach($roleN as $key => $rolen){ 
-                if($rolen == 'Admin'){ 
-                    $users = User::where('id','!=',$auth->id)->paginate(5);
+            if($request->listas == 'Admin' && strpos($roleN,'Admin')){
+                    $users = User::where('id','!=',$auth->id)->where('nombre','LIKE','%'.$request['busqueda'].'%')->orWhere('usuario','LIKE','%'.$request['busqueda'].'%')->paginate(5);
             return view('vistas.userList',compact('users'));
-                } 
-                } 
-                $users = User::where('id','!=',$auth->id)->permission('userProyecto')->paginate(5);
+            }else{
+                $users = User::where('id','!=',$auth->id)->orWhere('nombre','LIKE','%'.$request['busqueda'].'%')->orWhere('usuario','LIKE','%'.$request['busqueda'].'%')->role($request->listas)->paginate(5);
+
+            }
                             // $a = User::;
             // return $users;
             return view('vistas.userList',compact('users'));
+            
         }
     
         public function userEdit($id){
@@ -112,13 +112,16 @@ class usuarios extends Controller
         return redirect()->route('userEdit',$request->id);
         }
     
-        public function userDelete($id){
+        public function userDelete($id,$listas){
+            // return $id;
             User::where('id',$id)->update(['estatus' => '0']);
-            return redirect()->route('userList');
+            return redirect()->route('usuarios.index',['listas'=>$listas,'busqueda'=>'']);
         }
-        public function userActive($id){
+        public function userActive($id,$listas){
+            // return $id;
             User::where('id',$id)->update(['estatus' => '1']);
-            return redirect()->route('userList');
+            return redirect()->route('usuarios.index',['listas'=>$listas,'busqueda'=>'']);
+
         }
     
     

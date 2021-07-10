@@ -20,9 +20,10 @@ Route::post('/login',[usuarios::class,'authLog'])->name('loging');
 
 Route::post('/logout',[usuarios::class,'logout'])->name('logout')->middleware('auth');
 
-Route::get('/usuarios',[usuarios::class,'userList'])->name('userList')->middleware('can:registroUsuario');
+// Route::get('/usuarios',[usuarios::class,'userList'])->name('userList')->middleware('can:registroUsuario');
+Route::resource('/usuarios', usuarios::class);
 
-Route::get('/usuarios/registro',[usuarios::class,'userRegistro'])->name('userRegistro')->middleware('can:registroUsuario');
+Route::get('/registro',[usuarios::class,'userRegistro'])->name('userRegistro')->middleware('can:registroUsuario');
 
 Route::post('/usuarios/guardar',[usuarios::class,'gUser'])->name('userSave')->middleware('can:registroUsuario');
 
@@ -32,11 +33,12 @@ Route::put('/usuarios/update/{user}',[usuarios::class,'userUpdate'])->name('user
 
 Route::post('/usuarios/updatepassword',[usuarios::class,'userUpdatePassword'])->name('userUpdatepass')->middleware('can:userAdmin');
 
-Route::get('/usuarios/userdelete/{id}', [usuarios::class,'userDelete'])->name('userDelete')->middleware('can:userAdmin');
 
-Route::get('/usuarios/useractive/{id}', [usuarios::class,'userActive'])->name('userActive')->middleware('can:userAdmin');
+Route::get('/usuarios/userdelete/{id}/{listas}', [usuarios::class,'userDelete'])->name('userDelete')->middleware('can:userAdmin');
 
-Route::post('/usuarios',[usuarios::class,'busqueda'])->name('userSearch')->middleware('can:registroUsuario');
+Route::get('/usuarios/useractive/{id}/{listas}', [usuarios::class,'userActive'])->name('userActive')->middleware('can:userAdmin');
+
+// Route::post('/usuarios',[usuarios::class,'busqueda'])->name('userSearch')->middleware('can:registroUsuario');
 Route::get('/roles', [usuarios::class,'roles'])->name('roleList')->middleware('can:userAdmin');
 
 Route::post('/usuarios/rolespermisos/nuevoRol',[usuarios::class,'crearRol'])->name('nuevoRol')->middleware('can:userAdmin');

@@ -7,9 +7,9 @@
       <h3 style="text-align: center;">Lista de usuarios</h3>
     </div>    
     <div class="row mb-1">
-    <form action="{{ route('userSearch') }}"   method="post">
-      @csrf
-    <b class="h5">Nombre:</b> <input class="form" type="text" name="busqueda" id="busqueda" value="{{old('busqueda')}}">
+    <form action="{{ route('usuarios.index') }}"   method="get">
+      <input type="hidden" id="listas" name="listas" value="{{$_GET['listas']}}">
+    <b class="h5">Nombre:</b> <input class="form" type="text" name="busqueda" id="busqueda" value="{{$_GET['busqueda']}}">
     <input name="enviar" id="enviar" class="btn btn-primary" type="submit" value="Buscar">
 </form>
     </div>
@@ -40,9 +40,9 @@
     @can('userAdmin')
     <td><a href="{{ route('userEdit', $user->id) }}" class="btn btn-warning btn-block">Editar</a></td>  
     @if ($user->estatus == 1)
-    <td><a id='btnBorrar' href="{{ route('userDelete', $user->id) }}" class="btn btn-success btn-block" >Activo</a></td>
+    <td><a id='btnBorrar' href="{{ route('userDelete',[$user->id,$_GET['listas']]) }}" class="btn btn-success btn-block" >Activo</a></td>
     @else
-    <td><a id='btnActive' href="{{ route('userActive', $user->id) }}" class="btn btn-danger btn-block" >Inactivo</a></td>
+    <td><a id='btnActive' href="{{ route('userActive',[$user->id,$_GET['listas']]) }}" class="btn btn-danger btn-block" >Inactivo</a></td>
     @endcan
 @endif
     @elsecan('registroUsuario')
