@@ -7,13 +7,12 @@
         <div class="card mx-auto">
         <div class="card-header"><h4 class="text-center font-weight-light my-2">Usuario:{{$user->usuario}}</h4></div>
         <div class="card-body" >
-            <form action="{{ route('userUpdate',$user)}}" method="post">
+            <form action="{{ route('userUpdate1',$user)}}" method="post">
                 @csrf
             
                 @method('put')
             
                 {{-- @dd($user) --}}
-                <input type="hidden" name="listas" value="{{$listas}}">
                 <div class="col-sm-8 mx-auto" >
                 <label for="">Nombre</label>
                 <input class="form-control" name="nombre" id="nombre" value="{{$user->nombre}}">

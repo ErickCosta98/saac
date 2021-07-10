@@ -38,7 +38,7 @@
     <td>{{$user->nombre}}</td>
     <td>{{$user->getRoleNames()}}</td>
     @can('userAdmin')
-    <td><a href="{{ route('userEdit', $user->id) }}" class="btn btn-warning btn-block">Editar</a></td>  
+    <td><a href="{{ route('userEdit', [$user->id,$_GET['listas']]) }}" class="btn btn-warning btn-block">Editar</a></td>  
     @if ($user->estatus == 1)
     <td><a id='btnBorrar' href="{{ route('userDelete',[$user->id,$_GET['listas']]) }}" class="btn btn-success btn-block" >Activo</a></td>
     @else

@@ -76,9 +76,12 @@ class usuarios extends Controller
             $roleN = $auth->getRoleNames();
             if($request->listas == 'Admin' && strpos($roleN,'Admin')){
                     $users = User::where('id','!=',$auth->id)->where('nombre','LIKE','%'.$request['busqueda'].'%')->orWhere('usuario','LIKE','%'.$request['busqueda'].'%')->paginate(5);
+                    $users->withPath('/usuarios?listas='.$request->listas.'&busqueda='.$request->busqueda);
+                    // return $users;
             return view('vistas.userList',compact('users'));
             }else{
                 $users = User::where('id','!=',$auth->id)->orWhere('nombre','LIKE','%'.$request['busqueda'].'%')->orWhere('usuario','LIKE','%'.$request['busqueda'].'%')->role($request->listas)->paginate(5);
+                $users->withPath('/usuarios?listas='.$request->listas.'&busqueda='.$request->busqueda);
 
             }
                             // $a = User::;
@@ -87,13 +90,13 @@ class usuarios extends Controller
             
         }
     
-        public function userEdit($id){
+        public function userEdit($id,$listas){
             $user = User::find($id);
             $roleN = $user->getRoleNames();
             //  return $roleN;
             $roles = Role::all();
             // return $user;
-            return view('vistas.editUser',compact('user','roles','roleN'));
+            return view('vistas.editUser',compact('user','roles','roleN','listas'));
         }
     
         public function userUpdate(Request $request ,User $user ){
@@ -101,11 +104,33 @@ class usuarios extends Controller
             $user->nombre = $request->nombre;
             $user->apelPat = $request->apelPat;
             $user->apelMat = $request->apelMat;
-    
+            $user->email = $request->email;
             $user->save();
             $user->syncRoles($request['roles']);
-        return redirect()->route('userList');
+        return redirect()->route('usuarios.index',['listas'=>$request->listas,'busqueda'=>'']);
         }
+
+        public function userEdit1($id){
+            $user = User::find($id);
+            $roleN = $user->getRoleNames();
+            //  return $roleN;
+            $roles = Role::all();
+            // return $user;
+            return view('vistas.editUserus',compact('user','roles','roleN'));
+        }
+    
+        public function userUpdate1(Request $request ,User $user ){
+    
+            $user->nombre = $request->nombre;
+            $user->apelPat = $request->apelPat;
+            $user->apelMat = $request->apelMat;
+            $user->email = $request->email;
+            $user->save();
+            $user->syncRoles($request['roles']);
+        return redirect()->route('usuarios.index');
+        }
+
+
     
         public function userUpdatePassword(Request $request){
             User::where('id',$request['id'])->update(['password' => Hash::make($request['contraseña'])]);
@@ -125,22 +150,6 @@ class usuarios extends Controller
         }
     
     
-        public function busqueda(Request $request){
-            $auth = User::find(Auth::user()->id);
-            $users = "";
-            $roleN = $auth->getRoleNames();
-
-            foreach($roleN as $key => $rolen){ 
-                if($rolen == 'Admin'){ 
-                    $users = User::where('id','!=',$auth->id)->orWhere('nombre','LIKE','%'.$request['busqueda'].'%')->orWhere('usuario','LIKE','%'.$request['busqueda'].'%')->paginate(5);
-            return view('vistas.userList',compact('users'));
-                } 
-                } 
-                $users = User::where('id','!=',$auth->id)->orWhere('nombre','LIKE','%'.$request['busqueda'].'%')->orWhere('usuario','LIKE','%'.$request['busqueda'].'%')->permission('userProyecto')->paginate(5);
-                            // $a = User::;
-            // return $users;
-            return view('vistas.userList',compact('users'));
-        }
         
         public function roles(){
             $roles= Role::all();
@@ -154,13 +163,6 @@ class usuarios extends Controller
             $role->syncPermissions($request['permisos']);
     
             return redirect()->route('rolespermisos');
-        }
-    
-        public function crearPermiso(Request $request){
-            Permission::create(['name' => $request['name']]);
-    
-            return redirect()->route('rolespermisos');
-    
         }
     
         public function editRol($id){
