@@ -12,7 +12,7 @@
                             <form action="{{ route('loging') }}" method="POST">
                               @csrf
                                   <div class="form-floating mb-3">
-                                      <input class="form-control" id="usuario" name="usuario" type="text" placeholder="usuario" />
+                                      <input class="form-control" id="usuario" name="usuario" type="text" placeholder="usuario" value="{{old('usuario')}}" />
                                       <label for="usuario">usuario</label>
                                       @error('usuario'){{$message}}@enderror
                                   </div>

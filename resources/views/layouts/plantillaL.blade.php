@@ -117,6 +117,22 @@
                                 @endcan
                             </nav>
                         </div>
+                        @can('userProyecto')
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts2">
+                            <div class="sb-nav-link-icon"><i class="fas fa-file"></i></div>
+                            proyectos
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('proyectos.index') }}"class="btn btn-primary">Lista proyectos</a>
+                                <a class="nav-link" href="{{ route('rProyecto') }}"class="btn btn-primary">Nuevo Proyecto</a>
+                            </nav>
+                        </div>
+                            
+                        @endcan
                         @can('userAdmin')
                             
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -152,6 +168,7 @@
         <div id="layoutSidenav_content">
             <main class="py-4">
                 @yield('contenido')
+            {{-- @dd($errors) --}}
             </main>
         </div>
     </div>

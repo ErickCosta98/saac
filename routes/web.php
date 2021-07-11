@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\editor;
 use App\Http\Controllers\usuarios;
+use App\Http\Controllers\proyectosController;
+use App\Models\proyectos;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +28,7 @@ Route::post('/logout',[usuarios::class,'logout'])->name('logout')->middleware('a
 Route::resource('/usuarios', usuarios::class)->middleware('can:registroUsuario');
 Route::get('/registro',[usuarios::class,'userRegistro'])->name('userRegistro')->middleware('can:registroUsuario');
 Route::post('/registro/guardar',[usuarios::class,'gUser'])->name('userSave')->middleware('can:registroUsuario');
-Route::get('/usuarios/edit/{id}/{listas}',[usuarios::class,'userEdit'])->name('can:registroUsuario')->middleware('auth');
+Route::get('/usuarios/edit/{id}/{listas}',[usuarios::class,'userEdit'])->name('userEdit')->middleware('can:registroUsuario');
 Route::get('/usuarios/editus/{id}',[usuarios::class,'userEdit1'])->name('userEdit1')->middleware('auth');
 Route::put('/usuarios/update/{user}',[usuarios::class,'userUpdate'])->name('userUpdate')->middleware('can:registroUsuario');
 Route::put('/usuarios/updateus/{user}',[usuarios::class,'userUpdate1'])->name('userUpdate1')->middleware('auth');
@@ -40,3 +42,10 @@ Route::post('/rolespermisos/nuevoRol',[usuarios::class,'crearRol'])->name('nuevo
 // Route::post('/usuarios/rolespermisos/nuevoPermiso',[usuarios::class,'crearPermiso'])->name('nuevoPermiso')->middleware('auth');
 Route::get('/rolespermisos/editRol/{id}',[usuarios::class,'editRol'])->name('roleEdit')->middleware('can:userAdmin');
 Route::post('/rolespermisos/updateRol',[usuarios::class,'updateRol'])->name('updateRol')->middleware('can:userAdmin');
+
+
+//Rutas proyectos
+Route::resource('/proyectos', proyectosController::class);
+Route::view('/proyecto/registro', 'vistas.registroProyecto')->name('rProyecto');
+Route::get('/proyecto/data',[proyectosController::class,'data'])->name('data');
+Route::get('/proyecto/nuevo',[proyectosController::class,'dataProyectos'])->name('newProyec');

@@ -32,8 +32,7 @@ class usuarios extends Controller
                 'apelPat' =>  $request['apelPat'],
                 'apelMat'=> $request['apelMat'],
                 'usuario' => $request['usuario'],
-            'email' => $request['mail'],
-                'password' => Hash::make($request['password']),
+                'email' => $request['mail'],
             ])->syncRoles($request['roles']);
             return redirect()->route('userRegistro');
         }
@@ -133,8 +132,23 @@ class usuarios extends Controller
 
     
         public function userUpdatePassword(Request $request){
-            User::where('id',$request['id'])->update(['password' => Hash::make($request['contraseña'])]);
-        return redirect()->route('userEdit',$request->id);
+            $password=User::where('id',$request['id'])->value('password');
+            if(!Hash::check($request->actpass, $password) ){
+                throw ValidationValidationException::withMessages([
+                    'actpass' => __('auth.failed'),
+                ]);
+            }
+            $request->validate([
+                'newPass' => ['required', 'string', 'min:8'],
+            ]);
+            if($request->newPass != $request->conPass){
+                throw ValidationValidationException::withMessages([
+                    'conPass' => 'La nueva contraseña no coincide'
+                ]);
+            }
+            // return 'HOLI';
+           User::where('id',$request['id'])->update(['password' => Hash::make($request['newPass'])]);
+        return redirect()->route('password')->with('info','Se completo el cambio de contraseña');
         }
     
         public function userDelete($id,$listas){
