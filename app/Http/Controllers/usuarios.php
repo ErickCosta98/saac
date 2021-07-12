@@ -74,14 +74,11 @@ class usuarios extends Controller
             $users = "";
             $roleN = $auth->getRoleNames();
             if($request->listas == 'Admin' && strpos($roleN,'Admin')){
-                    $users = User::where('id','!=',$auth->id)->where('nombre','LIKE','%'.$request['busqueda'].'%')->orWhere('usuario','LIKE','%'.$request['busqueda'].'%')->paginate(5);
-                    $users->withPath('/usuarios?listas='.$request->listas.'&busqueda='.$request->busqueda);
-                    // return $users;
+                    $users = User::where('id','!=',$auth->id)->get(); 
+                //    return $users;
             return view('vistas.userList',compact('users'));
             }else{
-                $users = User::where('id','!=',$auth->id)->orWhere('nombre','LIKE','%'.$request['busqueda'].'%')->orWhere('usuario','LIKE','%'.$request['busqueda'].'%')->role($request->listas)->paginate(5);
-                $users->withPath('/usuarios?listas='.$request->listas.'&busqueda='.$request->busqueda);
-
+                $users = User::where('id','!=',$auth->id)->role($request->listas)->get();
             }
                             // $a = User::;
             // return $users;
@@ -106,7 +103,7 @@ class usuarios extends Controller
             $user->email = $request->email;
             $user->save();
             $user->syncRoles($request['roles']);
-        return redirect()->route('usuarios.index',['listas'=>$request->listas,'busqueda'=>'']);
+        return redirect()->route('usuarios.index',['listas'=>$request->listas]);
         }
 
         public function userEdit1($id){

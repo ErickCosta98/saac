@@ -16,7 +16,6 @@
             <div class="alert alert-success" role="alert">
                 <strong> {{session('data')}}</strong>
             </div>
-            {{$dt = session('data')}}
             @endif
             </div>
             

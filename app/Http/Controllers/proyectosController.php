@@ -10,7 +10,7 @@ class proyectosController extends Controller
 {
     //
     public function index(Request $request){
-        $proyectos = proyectos::paginate(8);
+        $proyectos = proyectos::all();
         return view('vistas.listaProyectos',compact('proyectos'));
     }
 

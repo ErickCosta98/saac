@@ -3,18 +3,10 @@
 @section('contenido')
 <div class="container">
     <div class="row">
-      <h3 style="text-align: center;">Lista de usuarios</h3>
+      <h3 style="text-align: center;">Lista de proyectos</h3>
     </div>    
-    <div class="row mb-1">
-    <form action=""   method="get">
-      <input type="hidden" id="listas" name="listas" value="">
-    <b class="h5">Nombre:</b> <input class="form" type="text" name="busqueda" id="busqueda" value="">
-    <input name="enviar" id="enviar" class="btn btn-primary" type="submit" value="Buscar">
-</form>
-    </div>
-
     <div class="row table-reponsive mx-auto" >
-  <table class="table table-light table-striped">
+  <table class="table table-light table-striped" id="tabla">
     <thead class="thead-light">
       <tr>
         <th>id</th>
@@ -40,7 +32,18 @@
         </tr>
     </tbody>
   </table>
-  {{$proyectos->links()}}
     </div>
   </div>
 @endsection
+
+@section('js')
+<script>  
+$(document).ready(function() {
+    $('#tabla').DataTable( {
+        language: {
+            url: 'DataTables/es-mx.json'
+        }
+    } );
+} );
+    </script>
+  @endsection

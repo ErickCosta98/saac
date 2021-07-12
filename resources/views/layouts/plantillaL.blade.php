@@ -11,11 +11,14 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     {{-- <script src="src/js/scripts.js"></script> --}}
+    {{-- <script src="src/js/jquery-3.6.0.min.js"></script> --}}
+    <script src="{{ asset('src/js/jquery-1.11.2.min.js') }}"></script>
     <script src="{{ asset('src/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('src/js/all.min.js') }}"></script>
     <script src="{{ asset('src/js/scripts.js') }}"></script>
+    <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
 
 
 
@@ -27,7 +30,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('src/css/styles.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
+  {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"> --}}
     {{-- <link rel="stylesheet" href="src/css/styles.css"> --}}
 </head>
 
@@ -102,7 +106,7 @@
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 @can('userAdmin')
-                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Admin','busqueda'=>'']) }}">Lista</a>
+                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Admin']) }}">Lista</a>
                                 {{-- <form action="{{ route('usuarios.index') }}" method="get">
                                     <input type="hidden" name="listas" id="lista" value="Admin">
                                     <input type="hidden" name="busqueda" id="busqueda" value="">
@@ -110,9 +114,9 @@
                                 </form> --}}
                                 @endcan
                                 @can('registroUsuario')
-                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Alumno','busqueda'=>'']) }}">Lista Alumnos</a>
-                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Profesor','busqueda'=>'']) }}">Lista Profesores</a>
-                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Verificador','busqueda'=>'']) }}">Lista Verificador</a>
+                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Alumno']) }}">Lista Alumnos</a>
+                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Profesor']) }}">Lista Profesores</a>
+                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Verificador']) }}">Lista Verificador</a>
                                 <a class="nav-link" href="{{ route('userRegistro') }}" class="btn btn-primary">Nuevo registro</a>
                                 @endcan
                             </nav>
@@ -172,6 +176,8 @@
             </main>
         </div>
     </div>
-</body>
 
+    @yield('js')
+
+</body>
 </html>
