@@ -13,8 +13,8 @@
     <!-- Scripts -->
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     {{-- <script src="src/js/scripts.js"></script> --}}
-    {{-- <script src="src/js/jquery-3.6.0.min.js"></script> --}}
-    <script src="{{ asset('src/js/jquery-1.11.2.min.js') }}"></script>
+    <script src="{{ asset('src/js/jquery-3.6.0.min.js') }}"></script>
+    {{-- <script src="{{ asset('src/js/jquery-1.11.2.min.js') }}"></script> --}}
     <script src="{{ asset('src/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('src/js/all.min.js') }}"></script>
     <script src="{{ asset('src/js/scripts.js') }}"></script>

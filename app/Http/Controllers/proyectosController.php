@@ -15,17 +15,13 @@ class proyectosController extends Controller
     }
 
     public function dataProyectos(Request $request){
-        return session('alumno');
         // return $request;
-        session()->push($request->listAlumno);
         $alumnos = User::role('Alumno')->get();
         return view('vistas.registroProyecto',compact('alumnos'));
     }
 
-    public function data(Request $request){
-        // $user = User::where('usuario',$usuario)->role('Alumno')->value('Nombre');
-        // return $request;
-        return redirect(route('rProyecto'))->with('data',$request->usuario);
+    public function regProyecto(Request $request){
+        return $request;
     }
     
 }

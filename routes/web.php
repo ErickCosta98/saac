@@ -46,6 +46,5 @@ Route::post('/rolespermisos/updateRol',[usuarios::class,'updateRol'])->name('upd
 
 //Rutas proyectos
 Route::resource('/proyectos', proyectosController::class);
-Route::view('/proyecto/registro', 'vistas.registroProyecto')->name('rProyecto');
-Route::get('/proyecto/data',[proyectosController::class,'data'])->name('data');
-Route::get('/proyecto/nuevo',[proyectosController::class,'dataProyectos'])->name('newProyec');
+Route::get('/proyecto/nuevo',[proyectosController::class,'dataProyectos'])->name('rProyecto');
+Route::post('/proyecto/registro', [proyectosController::class,'regProyecto'])->name('nuevoProyecto');
