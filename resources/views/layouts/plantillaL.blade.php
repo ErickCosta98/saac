@@ -139,7 +139,7 @@
                         @endcan
                         @can('userAdmin')
                             
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                        {{-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts1">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Roles
@@ -150,7 +150,7 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('roleList') }}"class="btn btn-primary">Lista de roles</a>
                             </nav>
-                        </div>
+                        </div> --}}
                         
                         @endcan
                         @endcan
