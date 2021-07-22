@@ -131,7 +131,14 @@
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('proyectos.index') }}"class="btn btn-primary">Lista proyectos</a>
+                                @can('registroProyecto')
                                 <a class="nav-link" href="{{ route('rProyecto') }}"class="btn btn-primary">Nuevo Proyecto</a>
+                                @endcan
+                                @if (Auth::user()->roles == 'Alumno'){
+                                <a class="nav-link" href="{{ route('unirseProyecto') }}"class="btn btn-primary">unirse aun proyecto</a>
+                                } 
+                                    
+                                @endif
                             </nav>
                         </div>
                             

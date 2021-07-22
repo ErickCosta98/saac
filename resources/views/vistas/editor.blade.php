@@ -3,21 +3,19 @@
 @section('contenido')
 <style>
     .container{
-        margin-top: 50px;
+        margin-top: 30px;
     }
 </style>
 <div class="container">
-<div class=" row">
     <form action="{{ route('saveContenido')}}" method="POST">
         @csrf
         <input type="hidden" name="codigo" value="{{$datos[0]->codigo}}">
-        <textarea name="area" class="editor" cols="150" rows="100">{{$datos[0]->contenido}}</textarea>
+        <textarea name="area" class="editor" cols="80" rows="70" >{{$datos[0]->contenido}}</textarea>
         <br>
         <div class="text-center">
             <input type="submit" value="Guardar" class="btn btn-success">
         </div>
     </form>
-</div>
 </div>
 <script>
     CKEDITOR.replace( 'area' );

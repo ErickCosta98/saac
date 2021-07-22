@@ -14,12 +14,12 @@ class CreateUsersProyectosTable extends Migration
     public function up()
     {
         Schema::create('users_proyectos', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('fk_userid');
             $table->foreign('fk_userid')->references('id')->on('users');
             $table->unsignedBigInteger('fk_proyectoid');
             $table->foreign('fk_proyectoid')->references('id')->on('proyectos');
             $table->string('rol');
+            $table->enum('estatus',[0,1,2])->default(1);
             $table->timestamps();
         });
     }
