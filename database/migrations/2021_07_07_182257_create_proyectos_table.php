@@ -14,8 +14,9 @@ class CreateProyectosTable extends Migration
     public function up()
     {
         Schema::create('proyectos', function (Blueprint $table) {
-            $table->id('id_proyecto');
+            $table->id();
             $table->string('nombre');
+            $table->string('codigo');
             $table->text('contenido')->default('a');
             $table->enum('estatus',[0,1])->default(0);
             $table->timestamps();

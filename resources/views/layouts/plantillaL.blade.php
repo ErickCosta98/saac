@@ -11,15 +11,13 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-    {{-- <script src="src/js/scripts.js"></script> --}}
-    <script src="{{ asset('src/js/jquery-3.6.0.min.js') }}"></script>
-    {{-- <script src="{{ asset('src/js/jquery-1.11.2.min.js') }}"></script> --}}
+    <script src="{{ asset('js/app.js') }}" ></script>
+    {{-- <script src="{{ asset('src/js/jquery-3.6.0.min.js') }}"></script> --}}
     <script src="{{ asset('src/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('src/js/all.min.js') }}"></script>
     <script src="{{ asset('src/js/scripts.js') }}"></script>
-    <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
-
+    <script src="{{ asset('DataTables/datatables.js') }}"></script>
+    {{-- <script src="{{ asset('sweetalert2/src/SweetAlert.js') }}"></script> --}}
 
 
 
@@ -121,6 +119,7 @@
                                 @endcan
                             </nav>
                         </div>
+                        @endcan
                         @can('userProyecto')
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts2">
@@ -152,7 +151,6 @@
                             </nav>
                         </div> --}}
                         
-                        @endcan
                         @endcan
                     </div>
                    

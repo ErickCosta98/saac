@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\proyectos;
+use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class proyectosFactory extends Factory
@@ -24,6 +25,7 @@ class proyectosFactory extends Factory
         return [
             'nombre' => $this->faker->name(),
             'contenido' => $this->faker->text(),
+            'codigo' => Helper::IDGenerator(new proyectos,'codigo',4,'pro'),
         ];
     }
 }

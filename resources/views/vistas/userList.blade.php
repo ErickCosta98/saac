@@ -28,7 +28,7 @@
     <td>{{$user->id}}</td>
     <td>{{$user->usuario}}</td>
     <td>{{$user->nombre}}</td>
-    <td>{{$user->getRoleNames()}}</td>
+    <td>{{$user->roles[0]->name}}</td>
     @can('userAdmin')
     <td><a href="{{ route('userEdit', [$user->id,$_GET['listas']]) }}" class="btn btn-warning btn-block">Editar</a></td>  
     @if ($user->estatus == 1)
@@ -42,7 +42,7 @@
     <td>{{$user->id}}</td>
     <td>{{$user->usuario}}</td>
     <td>{{$user->nombre}}</td>
-    <td>{{$user->getRoleNames()}}</td>
+    <td>{{$user->roles[0]->name}}</td>
     @endcan
     @endforeach
         </tr>

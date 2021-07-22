@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
+use App\Helpers\Helper;
 use App\Models\proyectos;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +17,8 @@ class proyectoSeeder extends Seeder
         //
 
         proyectos::create([
-            'contenido' => ''
+            'contenido' => '',
+            'codigo' => '',
         ]);
     }
 }

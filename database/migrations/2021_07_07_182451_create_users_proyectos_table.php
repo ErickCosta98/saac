@@ -18,7 +18,7 @@ class CreateUsersProyectosTable extends Migration
             $table->unsignedBigInteger('fk_userid');
             $table->foreign('fk_userid')->references('id')->on('users');
             $table->unsignedBigInteger('fk_proyectoid');
-            $table->foreign('fk_proyectoid')->references('id_proyecto')->on('proyectos');
+            $table->foreign('fk_proyectoid')->references('id')->on('proyectos');
             $table->string('rol');
             $table->timestamps();
         });

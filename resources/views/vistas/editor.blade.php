@@ -1,11 +1,5 @@
-@extends('layouts.plantilla')
-<link rel="stylesheet" href="src/css/font-awesome.min.css">
-{{-- <link rel="stylesheet" href="src/css/richtext.min.css"> --}}
-<script src="src/js/jquery-3.6.0.min.js"></script>
-{{-- <script src="src/js/jquery.richtext.js"></script> --}}s
-<script src="src/ckeditor/ckeditor.js"></script>
-@section('titulo',"Editor1")
-    
+@extends('layouts.plantillaL')
+<script src="{{ asset('src/ckeditor/ckeditor.js') }}"></script>    
 @section('contenido')
 <style>
     .container{
@@ -14,15 +8,44 @@
 </style>
 <div class="container">
 <div class=" row">
-    <form action="{{ route('editor.show') }}" method="POST">
+    <form action="{{ route('saveContenido')}}" method="POST">
         @csrf
-        <textarea name="area" class="editor" cols="30" rows="10"></textarea>
-        <input type="submit" value="Guardar" class="btn btn-success">
+        <input type="hidden" name="codigo" value="{{$datos[0]->codigo}}">
+        <textarea name="area" class="editor" cols="150" rows="100">{{$datos[0]->contenido}}</textarea>
+        <br>
+        <div class="text-center">
+            <input type="submit" value="Guardar" class="btn btn-success">
+        </div>
     </form>
 </div>
 </div>
 <script>
-    // $('.editor').richText();
     CKEDITOR.replace( 'area' );
 </script>
 @endsection 
+
+@section('js')
+<script>  
+    $(function(){
+        
+        @if(Session::has('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{ Session::get("error") }}',
+            showConfirmButton: false,
+            timer: 1500,
+        })
+        @endif
+        @if(Session::has('success'))
+        Swal.fire({
+        icon: 'success',
+        title: 'Listo!',
+        text: '{{ Session::get("success") }}',
+        showConfirmButton: false,
+            timer: 1500,
+    })
+    @endif
+    });
+        </script>
+@endsection

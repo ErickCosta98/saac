@@ -9,7 +9,7 @@
   <table class="table table-light table-striped" id="tabla">
     <thead class="thead-light">
       <tr>
-        <th>id</th>
+        <th>codigo</th>
         <th>Nombre</th>
         <th>Editar contenido</th>
         <th>Editar informacion</th>
@@ -19,10 +19,9 @@
     <tbody>
     @foreach ( $proyectos as $proyecto )
     <tr>
-    <td>{{$proyecto->id_proyecto}}</td>
+    <td>{{$proyecto->codigo}}</td>
     <td>{{$proyecto->nombre}}</td>
-    <td><a href="" class="btn btn-warning btn-block">Contenido</a></td>  
-    <td><a href="" class="btn btn-warning btn-block">Informacion</a></td>  
+    <td><a href="{{ route('editProyecto', $proyecto->codigo) }}" class="btn btn-warning btn-block">Contenido</a></td>  
     @if ($proyecto->estatus == 0)
     <td><a id='btnBorrar' href="" class="btn btn-success btn-block" >Activo</a></td>
     @else
