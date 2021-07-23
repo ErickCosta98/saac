@@ -23,4 +23,11 @@ class editor extends Controller
 
         return back()->with('success','cambios guardados');
     }
+
+    public function subirImg(Request $request){
+
+        $request->upload->move(public_path('img'),$request->file('upload')->getClientOriginalName());
+        echo json_encode(array('file_name' => $request->file('upload')->getClientOriginalName()));
+    }
+
 }

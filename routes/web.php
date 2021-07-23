@@ -50,3 +50,5 @@ Route::view('/proyecto/nuevo', 'vistas.registroProyecto')->name('rProyecto');
 Route::post('/proyecto/registro', [proyectosController::class,'regProyecto'])->name('nuevoProyecto');
 Route::get('/proyecto/editor/{id}',[editor::class,'show'])->name('editProyecto');
 Route::post('/proyecto/editor/guardar',[editor::class,'guardar'])->name('saveContenido');
+Route::post('/proyecto/img/subir', [editor::class,'subirImg'])->name('subirImg');
+

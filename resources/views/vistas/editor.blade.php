@@ -18,7 +18,11 @@
     </form>
 </div>
 <script>
-    CKEDITOR.replace( 'area' );
+    CKEDITOR.replace( 'area',{
+        height:400,
+        filebrowserUploadUrl:'{{ asset('/proyecto/img/subir')}}',
+        
+    } );
 </script>
 @endsection 
 
