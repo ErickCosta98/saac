@@ -19,8 +19,10 @@
 </div>
 <script>
     CKEDITOR.replace( 'area',{
-        height:400,
+        height:300,
         filebrowserUploadUrl:'{{ asset('/proyecto/img/subir')}}',
+        filebrowserBrowseUrl:'{{ asset('/proyecto/img/ver')}}',
+
         
     } );
 </script>

@@ -5,7 +5,7 @@ class Helper
 {
 
     public static function IDGenerator($model, $trow, $length, $prefix){
-        $prefix = $prefix.date("m.d.y");
+        $prefix = $prefix.date("mdy");
         $data = $model::orderBy('id','desc')->first();
         if(!$data){
             $og_length = $length;

@@ -9,6 +9,7 @@ use App\Models\users_proyectos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class proyectosController extends Controller
 {
@@ -19,13 +20,17 @@ class proyectosController extends Controller
     }
 
     public function regProyecto(Request $request){
+        
+
         // return Auth::user()->roles[0]->name;
         $proyecto = new proyectos();
         $proyecto->nombre = $request->nombre;
         $prefix = strtoupper(substr(trim($request->nombre),1,3));
         $proyecto->codigo = Helper::IDGenerator(new proyectos,'codigo', 4 , $prefix);
         $proyecto->save();
-
+        if (!Storage::disk('public')->exists('img/'.$proyecto->codigo)) {
+            Storage::disk('public')->makeDirectory('img/'.$proyecto->codigo);
+        }
         $usp = new users_proyectos();
         $usp->fk_userid = Auth::user()->id;
         $usp->fk_proyectoid = $proyecto->id;
