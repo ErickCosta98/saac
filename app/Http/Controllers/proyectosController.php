@@ -28,8 +28,8 @@ class proyectosController extends Controller
         $prefix = strtoupper(substr(trim($request->nombre),1,3));
         $proyecto->codigo = Helper::IDGenerator(new proyectos,'codigo', 4 , $prefix);
         $proyecto->save();
-        if (!Storage::disk('public')->exists('img/'.$proyecto->codigo)) {
-            Storage::disk('public')->makeDirectory('img/'.$proyecto->codigo);
+        if (!Storage::disk('public')->exists('pdf/'.$proyecto->codigo)) {
+            Storage::disk('public')->makeDirectory('pdf/'.$proyecto->codigo);
         }
         $usp = new users_proyectos();
         $usp->fk_userid = Auth::user()->id;

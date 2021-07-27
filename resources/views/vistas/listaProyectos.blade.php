@@ -11,9 +11,9 @@
       <tr>
         <th>codigo</th>
         <th>Nombre</th>
-        <th>Editar contenido</th>
-        <th>Editar informacion</th>
-        <th>Modificar estado</th>     
+        <th>contenido</th>
+        <th>informacion</th>
+        <th>Estado</th>     
       </tr>
     </thead>
     <tbody>

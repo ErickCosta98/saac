@@ -27,21 +27,21 @@ class editor extends Controller
         return back()->with('success','cambios guardados');
     }
 
-    public function subirImg(Request $request){
+    // public function subirImg(Request $request){
         
-        $imagen = $request->file('upload')->store('public/img/'.session('codigo'));
+    //     $imagen = $request->file('upload')->store('public/img/'.session('codigo'));
 
-      $url = Storage::url($imagen);
-      $ul = new urlsModel();
-      $ul->codigo = session('codigo');
-      $ul->url = $url;
-      $ul->save();
-    return json_encode(array('url'=>$url));
-    }
+    //   $url = Storage::url($imagen);
+    //   $ul = new urlsModel();
+    //   $ul->codigo = session('codigo');
+    //   $ul->url = $url;
+    //   $ul->save();
+    // return json_encode(array('url'=>$url));
+    // }
 
-    public function verImg(){
-        $urls = urlsModel::where('codigo',session('codigo'))->get();
-        return view('vistas.browseimg',compact('urls'));
-    }
+    // public function verImg(){
+    //     $urls = urlsModel::where('codigo',session('codigo'))->get();
+    //     return view('vistas.browseimg',compact('urls'));
+    // }
 
 }

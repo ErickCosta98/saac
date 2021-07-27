@@ -3,7 +3,7 @@
 @section('contenido')
 <style>
     .container{
-        margin-top: 30px;
+        margin-top: 20px;
     }
 </style>
 <div class="container">
@@ -12,18 +12,14 @@
         <input type="hidden" name="codigo" value="{{$datos[0]->codigo}}">
         <textarea name="area" class="editor" cols="80" rows="70" >{{$datos[0]->contenido}}</textarea>
         <br>
-        <div class="text-center">
+        {{-- <div class="text-center">
             <input type="submit" value="Guardar" class="btn btn-success">
-        </div>
+        </div> --}}
     </form>
 </div>
 <script>
     CKEDITOR.replace( 'area',{
         height:300,
-        filebrowserUploadUrl:'{{ asset('/proyecto/img/subir')}}',
-        filebrowserBrowseUrl:'{{ asset('/proyecto/img/ver')}}',
-
-        
     } );
 </script>
 @endsection 
