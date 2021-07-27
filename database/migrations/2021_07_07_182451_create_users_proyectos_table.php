@@ -19,6 +19,7 @@ class CreateUsersProyectosTable extends Migration
             $table->unsignedBigInteger('fk_proyectoid');
             $table->foreign('fk_proyectoid')->references('id')->on('proyectos');
             $table->string('rol');
+            $table->string('codigo');
             $table->enum('estatus',[0,1,2])->default(1);
             $table->timestamps();
         });

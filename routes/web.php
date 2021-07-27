@@ -50,5 +50,12 @@ Route::view('/proyecto/nuevo', 'vistas.registroProyecto')->name('rProyecto');
 Route::post('/proyecto/registro', [proyectosController::class,'regProyecto'])->name('nuevoProyecto');
 Route::get('/proyecto/editor/{id}',[editor::class,'show'])->name('editProyecto');
 Route::post('/proyecto/editor/guardar',[editor::class,'guardar'])->name('saveContenido');
-Route::post('/proyecto/img/subir/', [editor::class,'subirImg'])->name('subirImg');
-Route::get('/proyecto/img/ver',[editor::class,'verImg']);
+Route::get('/proyecto/informacion/{id}',[proyectosController::class,'informacion'])->name('infoProyecto');
+Route::post('/proyecto/informacion/edit',[proyectosController::class,'informacion'])->name('einfoProyecto');
+Route::post('/proyecto/unirse',[proyectosController::class,'unirseProyecto'])->name('unirseP');
+Route::get('/proyecto/aceptarAlumno',[proyectosController::class,'aceptarAlumno'])->name('aceptarAlumno');
+Route::get('/proyecto/noaceptarAlumno',[proyectosController::class,'noaceptarAlumno'])->name('noaceptarAlumno');
+
+
+// Route::post('/proyecto/img/subir/', [editor::class,'subirImg'])->name('subirImg');
+// Route::get('/proyecto/img/ver',[editor::class,'verImg']);
