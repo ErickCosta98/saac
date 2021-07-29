@@ -1,4 +1,4 @@
-@extends('layouts.plantilla')
+@extends('layouts.plantillaL')
 @section('contenido')
 <div id="layoutAuthentication">
   <div id="layoutAuthentication_content">
@@ -6,8 +6,8 @@
           <div class="container">
               <div class="row justify-content-center">
                   <div class="col-lg-5">
-                      <div class="card shadow-lg border-0 rounded-lg mt-5">
-                          <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                      <div class="card shadow-lg border-0 rounded-lg mt-lg-5">
+                          <div class="card-header"><h3 class="text-center font-weight-light my-4">Inicio de sesion</h3></div>
                           <div class="card-body">
                             <form action="{{ route('loging') }}" method="POST">
                               @csrf
@@ -22,8 +22,8 @@
                                       @error('password'){{$message}}@enderror
                                   </div>
                                   
-                                  <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                    <input type="submit" class="btn btn-primary" value="Login"> 
+                                  <div class="  mt-4 text-center">
+                                    <input type="submit" class="btn btn-primary" value="Iniciar"> 
                                   </div>
                               </form>
                           </div>
@@ -37,12 +37,8 @@
       <footer class="py-4 bg-light mt-auto">
           <div class="container-fluid px-4">
               <div class="d-flex align-items-center justify-content-between small">
-                  <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                  <div>
-                      <a href="#">Privacy Policy</a>
-                      &middot;
-                      <a href="#">Terms &amp; Conditions</a>
-                  </div>
+                  <div class="text-muted">DESARROLLADO POR ERICK HERNANDEZ</div>
+                 
               </div>
           </div>
       </footer>

@@ -6,21 +6,25 @@
         margin-top: 20px;
     }
 </style>
-<div class="container">
-    <form action="{{ route('saveContenido')}}" method="POST">
+<div class="container shadow-lg border-0 rounded-lg mt-3">
+
+    <form  action="{{ route('saveContenido')}}" method="POST">
         @csrf
         <input type="hidden" name="codigo" value="{{$datos[0]->codigo}}">
-        <textarea name="area" class="editor" cols="80" rows="70" >{{$datos[0]->contenido}}</textarea>
         <br>
+        <textarea class="" name="editor" id="editor" cols="80" rows="70" >{{$datos[0]->contenido}}</textarea>
+        <br>
+        
         {{-- <div class="text-center">
             <input type="submit" value="Guardar" class="btn btn-success">
         </div> --}}
     </form>
 </div>
 <script>
-    CKEDITOR.replace( 'area',{
-        height:300,
+    CKEDITOR.replace( 'editor',{
+        height:500,
     } );
+   
 </script>
 @endsection 
 

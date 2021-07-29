@@ -192,9 +192,7 @@ class usuarios extends Controller
             $role->syncPermissions($request['permisos']);
             return redirect()->route('rolespermisos');
         }
-
-
-
+        
 
 
 }

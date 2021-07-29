@@ -1,10 +1,10 @@
 @extends('layouts.plantillaL')
 
 @section('contenido')
-<div class="container">
+<div class="container ">
     <div class="row ">
-        <div class="card mx-auto">
-            <div class="card-header">
+        <div class="card mx-auto shadow-lg border-0 rounded-lg mt-3">
+            <div class="card-header mt-3">
                 <h4 class="text-center font-weight-light my-2">Nuevo proyecto</h4>
             </div>
             <div class="card-body">

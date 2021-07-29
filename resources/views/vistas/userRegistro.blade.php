@@ -4,9 +4,9 @@
 @section('contenido')
     <div class="container">
         <div class="row ">
-            <div class="card mx-auto">
-                <div class="card-header">
-                    <h4 class="text-center font-weight-light my-2">Nuevo usuario</h4>
+            <div class="card mx-auto shadow-lg border-0 rounded-lg mt-3">
+                <div class="card-header mt-3">
+                    <h4  class="text-center font-weight-light my-2">Nuevo usuario</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('userSave') }}" method="post">
@@ -55,7 +55,7 @@
                 </label>
             @endforeach
             <br> --}}
-            <div class="col-sm-8 mx-auto">
+            <div class="col-sm-8 mx-auto mt-3 text-center">
             <input class="btn btn-primary btn" type="submit" value="Guardar">
             </div>
                 </div>

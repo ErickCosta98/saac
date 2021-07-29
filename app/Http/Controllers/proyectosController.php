@@ -10,12 +10,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException as ValidationValidationException;
+
 
 class proyectosController extends Controller
 {
     //
     public function index(Request $request)
     {
+        $user = User::find(Auth::user()->id);
+       
+        if ($user->hasRole('Verificador')) {
+            $proyectos = proyectos::all();
+            return view('vistas.listaProyectos', compact('proyectos'));
+        }
         $proyectos = DB::select("select proyectos.* from proyectos inner join users_proyectos on users_proyectos.fk_userid = ? and users_proyectos.estatus = '1' and proyectos.id=users_proyectos.fk_proyectoid", [Auth::user()->id]);
         return view('vistas.listaProyectos', compact('proyectos'));
     }
@@ -54,8 +62,15 @@ class proyectosController extends Controller
 
     public function unirseProyecto(Request $request)
     {
+        $request->validate(['codigo' => ['required', 'string', 'min:14'],
+    ]);
         $proyecto = DB::select('select * from proyectos where codigo = ?', [$request->codigo]);
-        // return $proyecto;
+        // return count($proyecto);
+        if (count($proyecto) == 0) {
+            throw ValidationValidationException::withMessages([
+                'codigo' => 'Codigo no valido',
+            ]);
+        }
         $usp = new users_proyectos();
         $usp->fk_userid = Auth::user()->id;
         $usp->fk_proyectoid = $proyecto[0]->id;
@@ -64,7 +79,7 @@ class proyectosController extends Controller
         $usp->estatus = '2';
         $usp->save();
 
-        return redirect('/proyectos');
+        return redirect('/proyectos')->with('success','en espera de aceptacion');
     }
 
     public function aceptarAlumno(Request $request)

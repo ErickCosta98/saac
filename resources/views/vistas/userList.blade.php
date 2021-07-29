@@ -2,9 +2,9 @@
 
 
 @section('contenido')
-<div class="container">
+<div class="container shadow-lg border-0 rounded-lg mt-3">
     <div class="row">
-      <h3 style="text-align: center;">Lista de usuarios</h3>
+      <h3 class="mt-3" style="text-align: center;">Lista de usuarios</h3>
     </div>    
     <div class="row table-reponsive mx-auto" >
   <table class="table table-light table-striped" id="tabla">
@@ -48,7 +48,9 @@
         </tr>
     </tbody>
   </table>
+  <div class="mt-4"></div>
     </div>
+    
   </div>
 
 @endsection
