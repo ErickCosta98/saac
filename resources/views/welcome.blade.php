@@ -8,10 +8,11 @@
     <h1 class="display-1  ">Proyectos Publicados</h1>
 </div>
 <div class="container">
-<div class="row row-cols-1 row-cols-md-2 g-4 mx-auto">
-  @for ($i = 1; $i <=10; $i++)
+<div class="row row-cols-1 row-cols-md-3 g-4 mx-auto">
+  @for ($i = 1; $i <=12; $i++)
   <div class="col">
-    <div class="card shadow-lg border-dark rounded-lg mt-5">
+    {{-- border-dark --}}
+    <div class="card shadow-lg  rounded-lg mt-5">
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">

@@ -123,7 +123,7 @@ class usuarios extends Controller
             $user->email = $request->email;
             $user->save();
             $user->syncRoles($request['roles']);
-        return redirect()->route('usuarios.index');
+        return back();
         }
 
 

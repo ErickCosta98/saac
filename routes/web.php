@@ -31,7 +31,7 @@ Route::post('/registro/guardar',[usuarios::class,'gUser'])->name('userSave')->mi
 Route::get('/usuarios/edit/{id}/{listas}',[usuarios::class,'userEdit'])->name('userEdit')->middleware('can:registroUsuario');
 Route::get('/usuarios/editus/{id}',[usuarios::class,'userEdit1'])->name('userEdit1')->middleware('auth');
 Route::put('/usuarios/update/{user}',[usuarios::class,'userUpdate'])->name('userUpdate')->middleware('can:registroUsuario');
-Route::put('/usuarios/updateus/{user}',[usuarios::class,'userUpdate1'])->name('userUpdate1')->middleware('auth');
+Route::put('/usuarios/updateus/{user}',[usuarios::class,'userUpdate1'])->name('userUpdate1');
 Route::view('/password', 'vistas.password')->name('password');
 Route::post('/usuarios/updatepassword',[usuarios::class,'userUpdatePassword'])->name('userUpdatepass')->middleware('can:userAdmin');
 Route::get('/usuarios/userdelete/{id}/{listas}', [usuarios::class,'userDelete'])->name('userDelete')->middleware('can:userAdmin');

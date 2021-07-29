@@ -22,7 +22,7 @@ class editor extends Controller
    
     public function guardar(Request $request){
         proyectos::where('codigo', $request->codigo)
-        ->update(['contenido' => $request->area]);
+        ->update(['contenido' => $request->editor]);
 
         return back()->with('success','cambios guardados');
     }
