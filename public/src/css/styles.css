@@ -42,6 +42,22 @@
 *::after {
   box-sizing: border-box;
 }
+::-webkit-scrollbar{
+  width: 14px;
+  height: 14px;
+  }
+  ::-webkit-scrollbar-thumb{
+  background: linear-gradient(184deg, #343A45 70%,#B3AFB3 83%);
+  border-radius: 7px;
+  }
+  ::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(150deg, #343a45 18%,#B3AFB3 77%);
+  }
+  ::-webkit-scrollbar-track{
+  background: #CCCACA;
+  border-radius: 7px;
+  box-shadow: inset -0.5px 0px 0px 0px #F0F0F0;
+  }
 
 @media (prefers-reduced-motion: no-preference) {
   :root {

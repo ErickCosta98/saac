@@ -34,7 +34,7 @@
       </main>
   </div>
   <div id="layoutAuthentication_footer">
-      <footer class="py-4 bg-light mt-auto">
+      <footer class="py-4 bg-light mt-auto fixed-bottom">
           <div class="container-fluid px-4">
               <div class="d-flex align-items-center justify-content-between small">
                   <div class="text-muted">DESARROLLADO POR ERICK HERNANDEZ</div>

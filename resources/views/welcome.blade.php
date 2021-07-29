@@ -4,7 +4,7 @@
 
 
 @section('contenido')
-<div class="text-center">
+<div class="text-center mt-4">
     <h1 class="display-1  ">Proyectos Publicados</h1>
 </div>
 <div class="container">
