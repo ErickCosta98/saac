@@ -16,16 +16,17 @@ use Illuminate\Validation\ValidationException as ValidationValidationException;
 class proyectosController extends Controller
 {
     //
-    public function index(Request $request)
+    public function index()
     {
         $user = User::find(Auth::user()->id);
        
         if ($user->hasRole('Verificador')) {
-            $proyectos = proyectos::all();
-            return view('vistas.listaProyectos', compact('proyectos'));
+            $proyectos = proyectos::all(['nombre','codigo']);
+            return datatables()->of($proyectos)->toJson();
         }
-        $proyectos = DB::select("select proyectos.* from proyectos inner join users_proyectos on users_proyectos.fk_userid = ? and users_proyectos.estatus = '1' and proyectos.id=users_proyectos.fk_proyectoid", [Auth::user()->id]);
-        return view('vistas.listaProyectos', compact('proyectos'));
+        $proyectos = DB::select("select proyectos.codigo, proyectos.nombre from proyectos inner join users_proyectos on users_proyectos.fk_userid = ? and users_proyectos.estatus = '1' and proyectos.id=users_proyectos.fk_proyectoid", [Auth::user()->id]);
+        return datatables()->of($proyectos)->toJson();
+
     }
 
     public function regProyecto(Request $request)

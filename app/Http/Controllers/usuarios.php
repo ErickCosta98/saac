@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Dotenv\Exception\ValidationException;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException as ValidationValidationException;
 use Spatie\Permission\Models\Permission;
@@ -70,23 +72,23 @@ class usuarios extends Controller
         }
     
         public function index(Request $request){
-            $auth = User::find(Auth::user()->id);
-            $users = "";
-            $roleN = $auth->getRoleNames();
-            if($request->listas == 'Admin' && strpos($roleN,'Admin')){
-                    $users = User::where('id','!=',$auth->id)->get(); 
-                //    return $users;
-            return view('vistas.userList',compact('users'));
-            }else{
-                $users = User::where('id','!=',$auth->id)->role($request->listas)->get();
-            }
-                            // $a = User::;
-            // return $users;
-            return view('vistas.userList',compact('users'));
             
+            if($request->listas == 'Admin'){
+                $users = DB::select('select users.*,roles.name as role from users inner join roles inner join model_has_roles on users.id != ? and users.estatus="1" and model_has_roles.model_id = users.id and  roles.id = model_has_roles.role_id', [Auth::user()->id]);
+                // $a = User::;
+            // return $users;
+            return datatables()->of($users)->toJson();                
+            }else{
+                $users = DB::select('select users.*,roles.name as role from users inner join roles inner join model_has_roles on users.id != ? and users.estatus="1" and roles.name = ? and model_has_roles.model_id = users.id and  roles.id = model_has_roles.role_id', [Auth::user()->id,$request->listas]);
+                  
+                // $a = User::;
+            // return $users;
+            return datatables()->of($users)->toJson();
+            }
         }
     
         public function userEdit($id,$listas){
+            // return $id;
             $user = User::find($id);
             $roleN = $user->getRoleNames();
             //  return $roleN;
@@ -148,10 +150,13 @@ class usuarios extends Controller
         return redirect()->route('password')->with('info','Se completo el cambio de contraseña');
         }
     
-        public function userDelete($id,$listas){
-            // return $id;
-            User::where('id',$id)->update(['estatus' => '0']);
-            return redirect()->route('usuarios.index',['listas'=>$listas,'busqueda'=>'']);
+        public function userDelete(Request $request){
+            //  return $request->id;
+            // User::where('id',$request->id)->update(['estatus' => '0']);
+            $user = User::find($request->id);
+            $user->estatus = '0';
+            $user->save();
+             return response()->json($user);
         }
         public function userActive($id,$listas){
             // return $id;

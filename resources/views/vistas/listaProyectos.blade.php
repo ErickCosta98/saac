@@ -28,13 +28,13 @@
         @endcan
       </tr>
     </thead>
-    <tbody>
+    {{-- <tbody>
     @foreach ( $proyectos as $proyecto )
     <tr>
     <td>{{$proyecto->codigo}}</td>
     <td>{{$proyecto->nombre}}</td>
     <td><a href="{{ route('editProyecto', $proyecto->codigo) }}" class="btn btn-primary">Contenido</a>
-      @hasanyrole('Profesor|Verificador')
+      @hasanyrole('Profesor|Verificador|Admin')
       <a href="{{ route('infoProyecto', $proyecto->codigo) }}" class="btn btn-warning">informacion</a>
       @endhasanyrole
       </td> 
@@ -43,7 +43,7 @@
     @endcan
     @endforeach
         </tr>
-    </tbody>
+    </tbody> --}}
   </table>
   <div class="mt-4"></div>
     </div>
@@ -52,15 +52,110 @@
 
 @section('js')
 <script>  
-$(document).ready(function() {
-    $('#tabla').DataTable( {
-        language: {
-            url: 'DataTables/es-mx.json'
+  $(document).ready(function() {
+    var ruta = "proyectos/lista"  ;
+    // console.log(ruta)
+   var tabla = $('#tabla').DataTable( {
+          responsive:true,
+          autoWidth:false,  
+          language: {
+              url: 'DataTables/es-mx.json'
+          },
+  
+          ajax:`{{ asset('${ruta}') }}`,
+          columns:[
+            {data:'codigo'},
+            {data:'nombre'},
+            {defaultContent:"<button  type='button' class='btn btn-primary' id='btnCont'>Contenido</button>@hasanyrole('Profesor|Verificador|Admin')<button  type='button' id='btnInfo' class='btn btn-warning'>informacion</a>@endhasanyrole"},
+            {defaultContent:"@can('authProyectos')<button type='button'  class='btn btn-success btn-block' >Aprobar</button>@endcan"},
+          ],
+      } );
+      
+      $('#tabla').on('click', '#btnEliminar', function () //Al hacer click sobre el boton button.form de la linea de arriba
+          {
+             var data_form = tabla.row($(this).parents("tr")).data();
+            //  console.log(data_form);
+             
+             var ruta = `/usuarios/userdelete`;
+            //  console.log(ruta)
+             const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+  })
+  
+  swalWithBootstrapButtons.fire({
+    title: 'estas seguro de elimiar esto?',
+    text: "No se podra revertir",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Si',
+    cancelButtonText: 'No',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "get",
+        url: ruta,
+        data: "&id=" + data_form['id'],
+        success: function (data) {
+          console.log(data)
+          swalWithBootstrapButtons.fire(
+        'Eliminado!',
+      )    
+      setTimeout(function(){
+        location.reload();
+      },2000,"JavaScript");
         }
-    } );
-} );
-    </script>
-    <script>  
+      });
+      
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelado',
+  
+      )
+    }
+  })
+  } );
+      $('#tabla').on('click', '#btnCont', function () //Al hacer click sobre el boton button.form de la linea de arriba
+          {
+            
+             var data_form = tabla.row($(this).parents("tr")).data();
+             console.log(data_form);
+             
+             location.href = `/proyecto/editor/${data_form['codigo']}`;
+  
+             
+      } );
+      $('#tabla').on('click', '#btnInfo', function () //Al hacer click sobre el boton button.form de la linea de arriba
+          {
+            
+             var data_form = tabla.row($(this).parents("tr")).data();
+             console.log(data_form);
+             
+             location.href = `/proyecto/informacion/${data_form['codigo']}`;
+  
+             
+      } );
+  } );
+  function getQueryVariable(variable) {
+     var query = window.location.search.substring(1);
+     var vars = query.split("&");
+     for (var i=0; i < vars.length; i++) {
+         var pair = vars[i].split("=");
+         if(pair[0] == variable) {
+             return pair[1];
+         }
+     }
+     return false;
+  }
+  
+      </script>    <script>  
       $(function(){
           
           @if(Session::has('error'))

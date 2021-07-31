@@ -16,7 +16,7 @@
     <script src="{{ asset('src/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('src/js/all.min.js') }}"></script>
     <script src="{{ asset('src/js/scripts.js') }}"></script>
-    <script src="{{ asset('DataTables/datatables.js') }}"></script>
+    <script src="{{ asset('DataTables1/datatables.min.js') }}"></script>
     {{-- <script src="{{ asset('sweetalert2/src/SweetAlert.js') }}"></script> --}}
 
 
@@ -28,7 +28,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('src/css/styles.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('DataTables1/datatables.min.css') }}">
   {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"> --}}
     {{-- <link rel="stylesheet" href="src/css/styles.css"> --}}
 </head>
@@ -144,7 +144,7 @@
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 @can('userAdmin')
-                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Admin']) }}">Lista</a>
+                                <a class="nav-link" href="{{ route('usuarios', ['listas'=>'Admin']) }}">Lista</a>
                                 {{-- <form action="{{ route('usuarios.index') }}" method="get">
                                     <input type="hidden" name="listas" id="lista" value="Admin">
                                     <input type="hidden" name="busqueda" id="busqueda" value="">
@@ -152,9 +152,9 @@
                                 </form> --}}
                                 @endcan
                                 @can('registroUsuario')
-                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Alumno']) }}">Lista Alumnos</a>
-                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Profesor']) }}">Lista Profesores</a>
-                                <a class="nav-link" href="{{ route('usuarios.index', ['listas'=>'Verificador']) }}">Lista Verificador</a>
+                                <a class="nav-link" href="{{ route('usuarios', ['listas'=>'Alumno']) }}">Lista Alumnos</a>
+                                <a class="nav-link" href="{{ route('usuarios', ['listas'=>'Profesor']) }}">Lista Profesores</a>
+                                <a class="nav-link" href="{{ route('usuarios', ['listas'=>'Verificador']) }}">Lista Verificador</a>
                                 <a class="nav-link" href="{{ route('userRegistro') }}" class="btn btn-primary">Nuevo registro</a>
                                 @endcan
                             </nav>
@@ -170,7 +170,7 @@
                         <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{{ route('proyectos.index') }}"class="btn btn-primary">Lista proyectos</a>
+                                <a class="nav-link" href="{{ route('proyectoList') }}"class="btn btn-primary">Lista proyectos</a>
                                 @can('registroProyecto')
                                 <a class="nav-link" href="{{ route('rProyecto') }}"class="btn btn-primary">Nuevo Proyecto</a>
                                 @endcan

@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\editor;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\usuarios;
 use App\Http\Controllers\proyectosController;
 use App\Models\proyectos;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +27,8 @@ Route::post('/logout',[usuarios::class,'logout'])->name('logout')->middleware('a
 //fin rutas Login
 //Inicio rutas Usuario
 // Route::get('/usuarios',[usuarios::class,'userList'])->name('userList')->middleware('can:registroUsuario');
-Route::resource('/usuarios', usuarios::class)->middleware('can:registroUsuario');
+Route::view('/usuarios','vistas.userList')->name('usuarios');
+Route::get('/usuarios/info', [usuarios::class,'index'])->name('listasUser')->middleware('can:registroUsuario');
 Route::get('/registro',[usuarios::class,'userRegistro'])->name('userRegistro')->middleware('can:registroUsuario');
 Route::post('/registro/guardar',[usuarios::class,'gUser'])->name('userSave')->middleware('can:registroUsuario');
 Route::get('/usuarios/edit/{id}/{listas}',[usuarios::class,'userEdit'])->name('userEdit')->middleware('can:registroUsuario');
@@ -34,8 +37,8 @@ Route::put('/usuarios/update/{user}',[usuarios::class,'userUpdate'])->name('user
 Route::put('/usuarios/updateus/{user}',[usuarios::class,'userUpdate1'])->name('userUpdate1');
 Route::view('/password', 'vistas.password')->name('password');
 Route::post('/usuarios/updatepassword',[usuarios::class,'userUpdatePassword'])->name('userUpdatepass')->middleware('can:userAdmin');
-Route::get('/usuarios/userdelete/{id}/{listas}', [usuarios::class,'userDelete'])->name('userDelete')->middleware('can:userAdmin');
-Route::get('/usuarios/useractive/{id}/{listas}', [usuarios::class,'userActive'])->name('userActive')->middleware('can:userAdmin');
+Route::get('/usuarios/userdelete', [usuarios::class,'userDelete'])->name('userDelete')->middleware('can:userAdmin');
+// Route::get('/usuarios/useractive/{id}/{listas}', [usuarios::class,'userActive'])->name('userActive')->middleware('can:userAdmin');
 //fin rutas usuario
 Route::get('/roles', [usuarios::class,'roles'])->name('roleList')->middleware('can:userAdmin');
 Route::post('/rolespermisos/nuevoRol',[usuarios::class,'crearRol'])->name('nuevoRol')->middleware('can:userAdmin');
@@ -45,7 +48,8 @@ Route::post('/rolespermisos/updateRol',[usuarios::class,'updateRol'])->name('upd
 
 
 //Rutas proyectos
-Route::resource('/proyectos', proyectosController::class);
+Route::view('/proyectos','vistas.listaProyectos')->name('proyectoList');
+Route::get('/proyectos/lista',[proyectosController::class,'index']);
 Route::view('/proyecto/nuevo', 'vistas.registroProyecto')->name('rProyecto');
 Route::post('/proyecto/registro', [proyectosController::class,'regProyecto'])->name('nuevoProyecto');
 Route::get('/proyecto/editor/{id}',[editor::class,'show'])->name('editProyecto');
@@ -59,3 +63,5 @@ Route::get('/proyecto/noaceptarAlumno',[proyectosController::class,'noaceptarAlu
 
 // Route::post('/proyecto/img/subir/', [editor::class,'subirImg'])->name('subirImg');
 // Route::get('/proyecto/img/ver',[editor::class,'verImg']);
+// app/Http/routes.php | app/routes/web.php
+Route::get('/pdf',[PDFController::class,'createPDF']);

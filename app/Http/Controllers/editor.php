@@ -26,7 +26,6 @@ class editor extends Controller
 
         return back()->with('success','cambios guardados');
     }
-
     // public function subirImg(Request $request){
         
     //     $imagen = $request->file('upload')->store('public/img/'.session('codigo'));
