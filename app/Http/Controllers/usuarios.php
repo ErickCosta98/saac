@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\User;
 use Dotenv\Exception\ValidationException;
 use GrahamCampbell\ResultType\Success;
@@ -27,16 +28,15 @@ class usuarios extends Controller
             $request->validate(['nombre' => ['required', 'string', 'max:255'],
             'apelPat' => ['required', 'string', 'max:255'],
             'apelMat' => ['required', 'string', 'max:255'],
-            'usuario' => ['required', 'string', 'max:20', 'unique:users'],
         ]);
+        $usuario = Helper::userGenerator(new User,'usuario',2,'USR');
             User::create([
                 'nombre' => $request['nombre'],
                 'apelPat' =>  $request['apelPat'],
                 'apelMat'=> $request['apelMat'],
-                'usuario' => $request['usuario'],
-                'email' => $request['mail'],
+                'usuario' => $usuario,
             ])->syncRoles($request['roles']);
-            return redirect()->route('userRegistro')->with('success','Nuevo usuario');
+            return redirect()->route('userRegistro')->with('success','Nuevo usuario:'.$usuario);
         }
     
         public function authLog(Request $request){
@@ -53,6 +53,9 @@ class usuarios extends Controller
             if(Auth::attempt(['usuario' => $credenciales['usuario'], 'password' => $credenciales['password']])){
             
             $request->session()->regenerate();
+            if($credenciales['password'] == '20212022'){
+            return redirect()->route('welcome')->with('alert','Tienes una contraseña por defecto por favor cambila!');
+            }
             
             return redirect()->route('welcome');
             }
@@ -105,7 +108,7 @@ class usuarios extends Controller
             $user->nombre = $request->nombre;
             $user->apelPat = $request->apelPat;
             $user->apelMat = $request->apelMat;
-            $user->email = $request->email;
+            // $user->email = $request->email;
             $user->save();
             $user->syncRoles($request['roles']);
         return redirect()->route('usuarios',['listas'=>$request->listas])->with('success','cambios guardados');
@@ -128,7 +131,7 @@ class usuarios extends Controller
             $user->nombre = $request->nombre;
             $user->apelPat = $request->apelPat;
             $user->apelMat = $request->apelMat;
-            $user->email = $request->email;
+            // $user->email = $request->email;
             $user->save();
             // $user->syncRoles($request['roles']);
         return back()->with('success','cambios guardados');;

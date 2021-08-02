@@ -49,4 +49,25 @@
   </div>
 </div>
 @endsection
+@section('js')
+
+<script>  
+$(function(){
+    
+    @if(Session::has('alert'))
+    Swal.fire({
+        icon: 'warning',
+        title: '{{ Session::get("alert") }}',
+    })
+    @endif
+    @if(Session::has('success'))
+    Swal.fire({
+    icon: 'success',
+    title: 'Listo! :',
+    text: '{{ Session::get("success") }}',
+})
+@endif
+});
+    </script>
+@endsection
 

@@ -30,14 +30,14 @@
                             {{$message }}
                          @enderror
                          <br>
-                            <label for="usuario">usuario</label>
+                            {{-- <label for="usuario">usuario</label>
                             <input class="form-control" type="text" name="usuario" id="usuario">
                             @error('usuario')
                             {{$message }}
                          @enderror
-                         <br>
-                            <label for="mail">Correo</label>
-                            <input class="form-control" type="email" name="mail" id="mail">
+                         <br> --}}
+                            {{-- <label for="mail">Correo</label>
+                            <input class="form-control" type="email" name="mail" id="mail"> --}}
                         </div>
 
                         @role('Admin')
@@ -101,8 +101,6 @@ $(function(){
     icon: 'success',
     title: 'Listo! :',
     text: '{{ Session::get("success") }}',
-    showConfirmButton: false,
-        timer: 1500
 })
 @endif
 });

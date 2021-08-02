@@ -26,8 +26,8 @@
                 <input class="form-control" type="text" name="apelMat" id="apelMat" value="{{$user->apelMat}}">
                 @error('apelMat'){{$message}}@enderror
 
-                <label for="">Correo</label>
-                <input class="form-control" type="email" name="email" id="email" value="{{$user->email}}">
+                {{-- <label for="">Correo</label>
+                <input class="form-control" type="email" name="email" id="email" value="{{$user->email}}"> --}}
             </div>
                
                 <div class="text-center">

@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('apelPat');
             $table->string('apelMat');
             $table->string('usuario')->unique();
-            $table->string('email')->nullable();
+            // $table->string('email')->nullable();
             $table->string('password')->default(Hash::make('20212022'));
             $table->enum('estatus',[0,1])->default(1);
             $table->timestamps();

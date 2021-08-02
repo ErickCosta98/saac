@@ -32,8 +32,8 @@
                 @error('apelMat')
                 {{$message }}
              @enderror
-             <label for="">Correo</label>
-                <input class="form-control" type="email" name="email" id="email" value="{{$user->email}}">
+             {{-- <label for="">Correo</label>
+                <input class="form-control" type="email" name="email" id="email" value="{{$user->email}}"> --}}
             </div>
                 @role('Admin')
                 <div class="col-sm-8 mx-auto">
