@@ -17,13 +17,22 @@
                 <div class="col-sm-8 mx-auto" >
                 <label for="">Nombre</label>
                 <input class="form-control" name="nombre" id="nombre" value="{{$user->nombre}}">
+                @error('nombre')
+                   {{$message }}
+                @enderror
                 <br>
                 <label for="">Apellido paterno</label>
-                <input  class="form-control" type="text" name="apelPat" id="apelPa" value="{{$user->apelPat}}">
+                <input  class="form-control" type="text" name="apelPat" id="apelPaT" value="{{$user->apelPat}}">
+                @error('apelPat')
+                {{$message }}
+             @enderror
                 <br>
                 <label for="">Apellido materno</label>
                 <input class="form-control" type="text" name="apelMat" id="apelMat" value="{{$user->apelMat}}">
-                <label for="">Correo</label>
+                @error('apelMat')
+                {{$message }}
+             @enderror
+             <label for="">Correo</label>
                 <input class="form-control" type="email" name="email" id="email" value="{{$user->email}}">
             </div>
                 @role('Admin')

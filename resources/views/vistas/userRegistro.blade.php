@@ -14,12 +14,28 @@
                         <div class="col-sm-8 mx-auto">
                             <label for="nombre">Nombre</label>
                             <input class="form-control" type="text" name="nombre" id="nombre">
+                            @error('nombre')
+                            {{$message }}
+                         @enderror
+                         <br>
                             <label for="apelPat">Apellido paterno</label>
                             <input class="form-control" type="text" name="apelPat" id="apelPat">
+                            @error('apelPat')
+                            {{$message }}
+                         @enderror
+                         <br>
                             <label for="apelMat">Apellido materno</label>
                             <input class="form-control" type="text" name="apelMat" id="apelMat">
+                            @error('apelMat')
+                            {{$message }}
+                         @enderror
+                         <br>
                             <label for="usuario">usuario</label>
                             <input class="form-control" type="text" name="usuario" id="usuario">
+                            @error('usuario')
+                            {{$message }}
+                         @enderror
+                         <br>
                             <label for="mail">Correo</label>
                             <input class="form-control" type="email" name="mail" id="mail">
                         </div>
@@ -65,4 +81,30 @@
     </div>
     </div>
 
+@endsection
+@section('js')
+
+<script>  
+$(function(){
+    
+    @if(Session::has('error'))
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{ Session::get("error") }}',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    @endif
+    @if(Session::has('success'))
+    Swal.fire({
+    icon: 'success',
+    title: 'Listo! :',
+    text: '{{ Session::get("success") }}',
+    showConfirmButton: false,
+        timer: 1500
+})
+@endif
+});
+    </script>
 @endsection

@@ -36,7 +36,7 @@ class usuarios extends Controller
                 'usuario' => $request['usuario'],
                 'email' => $request['mail'],
             ])->syncRoles($request['roles']);
-            return redirect()->route('userRegistro');
+            return redirect()->route('userRegistro')->with('success','Nuevo usuario');
         }
     
         public function authLog(Request $request){
@@ -98,14 +98,17 @@ class usuarios extends Controller
         }
     
         public function userUpdate(Request $request ,User $user ){
-    
+            $request->validate(['nombre' => ['required', 'string', 'max:255'],
+            'apelPat' => ['required', 'string', 'max:255'],
+            'apelMat' => ['required', 'string', 'max:255'],
+        ]);
             $user->nombre = $request->nombre;
             $user->apelPat = $request->apelPat;
             $user->apelMat = $request->apelMat;
             $user->email = $request->email;
             $user->save();
             $user->syncRoles($request['roles']);
-        return redirect()->route('usuarios.index',['listas'=>$request->listas]);
+        return redirect()->route('usuarios',['listas'=>$request->listas])->with('success','cambios guardados');
         }
 
         public function userEdit1($id){
@@ -118,14 +121,17 @@ class usuarios extends Controller
         }
     
         public function userUpdate1(Request $request ,User $user ){
-    
+            $request->validate(['nombre' => ['required', 'string', 'max:255'],
+            'apelPat' => ['required', 'string', 'max:255'],
+            'apelMat' => ['required', 'string', 'max:255'],
+        ]);
             $user->nombre = $request->nombre;
             $user->apelPat = $request->apelPat;
             $user->apelMat = $request->apelMat;
             $user->email = $request->email;
             $user->save();
-            $user->syncRoles($request['roles']);
-        return back();
+            // $user->syncRoles($request['roles']);
+        return back()->with('success','cambios guardados');;
         }
 
 

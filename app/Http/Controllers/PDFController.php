@@ -14,12 +14,14 @@ class PDFController extends Controller
          
     }
  
-    public function createPDF()
+    public function createPDF(Request $request)
     {
-    $contenido = proyectos::find(1);
-    // return $contenido;
+    $contenido = proyectos::where('codigo',$request->codigo)->first();
+    //  return $contenido;
     $pdf = App::make('dompdf.wrapper');
     $pdf->loadHTML($contenido->contenido);
     return $pdf->download($contenido->nombre.'.pdf');
+    // return $pdf->stream($contenido->nombre.'.pdf');
+
     }
 }

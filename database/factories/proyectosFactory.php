@@ -24,7 +24,7 @@ class proyectosFactory extends Factory
     {
         return [
             'nombre' => $this->faker->name(),
-            'contenido' => $this->faker->text(),
+            'estatus' => '1',
             'codigo' => Helper::IDGenerator(new proyectos,'codigo',4,'pro'),
         ];
     }

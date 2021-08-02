@@ -21,17 +21,18 @@ class proyectosController extends Controller
         $user = User::find(Auth::user()->id);
        
         if ($user->hasRole('Verificador')) {
-            $proyectos = proyectos::all(['nombre','codigo']);
+            $proyectos = proyectos::select('codigo','nombre')->where('estatus','0');
             return datatables()->of($proyectos)->toJson();
         }
-        $proyectos = DB::select("select proyectos.codigo, proyectos.nombre from proyectos inner join users_proyectos on users_proyectos.fk_userid = ? and users_proyectos.estatus = '1' and proyectos.id=users_proyectos.fk_proyectoid", [Auth::user()->id]);
+        $proyectos = DB::select("select proyectos.codigo, proyectos.nombre from proyectos inner join users_proyectos on users_proyectos.fk_userid = ? and users_proyectos.estatus = '1' and proyectos.estatus = '0' and proyectos.id=users_proyectos.fk_proyectoid", [Auth::user()->id]);
         return datatables()->of($proyectos)->toJson();
 
     }
 
     public function regProyecto(Request $request)
     {
-
+        $request->validate(['nombre' => ['required', 'string', 'min:8', 'max:255'],
+        ]);
 
         // return Auth::user()->roles[0]->name;
         $proyecto = new proyectos();
@@ -51,6 +52,13 @@ class proyectosController extends Controller
         return redirect()->route('rProyecto')->with('success', $proyecto->codigo);
     }
 
+    public function informacionEdit(Request $request)
+    {
+        $request->validate(['nombre' => ['required', 'string', 'min:8', 'max:255'],
+    ]);
+        proyectos::where('codigo',$request->codigo)->update(['nombre'=>$request->nombre]);
+        return back()->with('success','cambios guardados');
+    }
     public function informacion($id)
     {
         $alumnos = DB::select("select users.*,users_proyectos.estatus from users inner join users_proyectos on users_proyectos.codigo = ? and users_proyectos.rol = 'Alumno' and users_proyectos.estatus != '0' and users_proyectos.fk_userid = users.id ", [$id]);
@@ -65,6 +73,10 @@ class proyectosController extends Controller
     {
         $request->validate(['codigo' => ['required', 'string', 'min:14'],
     ]);
+    $pro = users_proyectos::where('codigo',$request->codigo)->where('fk_userid',Auth::user()->id)->get();
+    if(count($pro) > 0){throw ValidationValidationException::withMessages([
+        'codigo' => 'Ya estas en espera de aceptacion',
+    ]); }
         $proyecto = DB::select('select * from proyectos where codigo = ?', [$request->codigo]);
         // return count($proyecto);
         if (count($proyecto) == 0) {
@@ -97,5 +109,24 @@ class proyectosController extends Controller
         users_proyectos::where('fk_userid',$request->id)->where('codigo', $request->codigo)->update(['estatus' => '0']);
 
         return back();
+    }
+
+    public function aceptarProyecto(Request $request){
+         proyectos::where('codigo',$request->codigo)->update(['estatus'=>'1']);
+
+        return response()->json('Aceptado');
+
+    }
+    public function verProyectosa(){
+        $proyectos = proyectos::where('estatus','1')->select('codigo','nombre')->paginate(9);
+        // return $proyectos;
+        return view('welcome',compact('proyectos'));
+    }
+    public function verProyectopage($codigo){
+        $proyecto = proyectos::where('codigo',$codigo)->first();
+        // return $proyecto;
+        return view('vistas.page',compact('proyecto'));
+
+
     }
 }

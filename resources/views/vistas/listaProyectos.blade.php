@@ -23,9 +23,9 @@
         <th>codigo</th>
         <th>Nombre</th>
         <th>acciones</th>
-        @can('authProyectos')
+        {{-- @can('authProyectos')
         <th>Estado</th>     
-        @endcan
+        @endcan --}}
       </tr>
     </thead>
     {{-- <tbody>
@@ -67,68 +67,17 @@
             {data:'codigo'},
             {data:'nombre'},
             {defaultContent:"<button  type='button' class='btn btn-primary' id='btnCont'>Contenido</button>@hasanyrole('Profesor|Verificador|Admin')<button  type='button' id='btnInfo' class='btn btn-warning'>informacion</a>@endhasanyrole"},
-            {defaultContent:"@can('authProyectos')<button type='button'  class='btn btn-success btn-block' >Aprobar</button>@endcan"},
           ],
       } );
       
-      $('#tabla').on('click', '#btnEliminar', function () //Al hacer click sobre el boton button.form de la linea de arriba
-          {
-             var data_form = tabla.row($(this).parents("tr")).data();
-            //  console.log(data_form);
-             
-             var ruta = `/usuarios/userdelete`;
-            //  console.log(ruta)
-             const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: 'btn btn-success',
-      cancelButton: 'btn btn-danger'
-    },
-    buttonsStyling: false
-  })
-  
-  swalWithBootstrapButtons.fire({
-    title: 'estas seguro de elimiar esto?',
-    text: "No se podra revertir",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Si',
-    cancelButtonText: 'No',
-    reverseButtons: true
-  }).then((result) => {
-    if (result.isConfirmed) {
-      $.ajax({
-        type: "get",
-        url: ruta,
-        data: "&id=" + data_form['id'],
-        success: function (data) {
-          console.log(data)
-          swalWithBootstrapButtons.fire(
-        'Eliminado!',
-      )    
-      setTimeout(function(){
-        location.reload();
-      },2000,"JavaScript");
-        }
-      });
-      
-    } else if (
-      /* Read more about handling dismissals below */
-      result.dismiss === Swal.DismissReason.cancel
-    ) {
-      swalWithBootstrapButtons.fire(
-        'Cancelado',
-  
-      )
-    }
-  })
-  } );
+     
       $('#tabla').on('click', '#btnCont', function () //Al hacer click sobre el boton button.form de la linea de arriba
           {
             
              var data_form = tabla.row($(this).parents("tr")).data();
              console.log(data_form);
              
-             location.href = `/proyecto/editor/${data_form['codigo']}`;
+             location.href = `proyecto/editor/${data_form['codigo']}`;
   
              
       } );
@@ -138,7 +87,7 @@
              var data_form = tabla.row($(this).parents("tr")).data();
              console.log(data_form);
              
-             location.href = `/proyecto/informacion/${data_form['codigo']}`;
+             location.href = `proyecto/informacion/${data_form['codigo']}`;
   
              
       } );
@@ -164,7 +113,7 @@
               title: 'Oops...',
               text: '{{ Session::get("error") }}',
               showConfirmButton: false,
-              timer: 1500
+              timer: 1500,
           })
           @endif
           @if(Session::has('success'))

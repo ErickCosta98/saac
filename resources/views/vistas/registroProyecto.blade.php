@@ -14,6 +14,9 @@
                     <div class="col-sm-8 mx-auto">
                         <label for="nombre">Nombre de proyecto</label>
                         <input type="text" name="nombre" id="nombre" class="form-control">
+                        @error('nombre')
+                            {{$message}}
+                        @enderror
                         <br>
                         <div class="text-center">
                         <input class="btn btn-primary" type="submit" value="guardar">

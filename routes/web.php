@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::view('/','welcome')->name('welcome');
+Route::get('/',[proyectosController::class,'verProyectosa'])->name('welcome');
 
 //Inicio rutas Login
 Route::view('/login', 'vistas.login')->name('login');
@@ -48,20 +48,24 @@ Route::post('/rolespermisos/updateRol',[usuarios::class,'updateRol'])->name('upd
 
 
 //Rutas proyectos
-Route::view('/proyectos','vistas.listaProyectos')->name('proyectoList');
-Route::get('/proyectos/lista',[proyectosController::class,'index']);
-Route::view('/proyecto/nuevo', 'vistas.registroProyecto')->name('rProyecto');
-Route::post('/proyecto/registro', [proyectosController::class,'regProyecto'])->name('nuevoProyecto');
-Route::get('/proyecto/editor/{id}',[editor::class,'show'])->name('editProyecto');
-Route::post('/proyecto/editor/guardar',[editor::class,'guardar'])->name('saveContenido');
-Route::get('/proyecto/informacion/{id}',[proyectosController::class,'informacion'])->name('infoProyecto');
-Route::post('/proyecto/informacion/edit',[proyectosController::class,'informacion'])->name('einfoProyecto');
-Route::post('/proyecto/unirse',[proyectosController::class,'unirseProyecto'])->name('unirseP');
-Route::get('/proyecto/aceptarAlumno',[proyectosController::class,'aceptarAlumno'])->name('aceptarAlumno');
-Route::get('/proyecto/noaceptarAlumno',[proyectosController::class,'noaceptarAlumno'])->name('noaceptarAlumno');
+Route::view('/proyectos','vistas.listaProyectos')->name('proyectoList')->middleware('auth');
+Route::get('/proyectos/lista',[proyectosController::class,'index'])->middleware('auth');;
+Route::view('/proyecto/nuevo', 'vistas.registroProyecto')->name('rProyecto')->middleware('auth');;
+Route::post('/proyecto/registro', [proyectosController::class,'regProyecto'])->name('nuevoProyecto')->middleware('auth');;
+Route::get('proyecto/editor/{id}',[editor::class,'show'])->name('editProyecto')->middleware('auth');;
+Route::post('/proyecto/editor/guardar',[editor::class,'guardar'])->name('saveContenido')->middleware('auth');;
+Route::get('/proyecto/informacion/{id}',[proyectosController::class,'informacion'])->name('infoProyecto')->middleware('auth');;
+Route::post('/proyecto/informacion/edit',[proyectosController::class,'informacionEdit'])->name('einfoProyecto')->middleware('auth');;
+Route::post('/proyecto/unirse',[proyectosController::class,'unirseProyecto'])->name('unirseP')->middleware('auth');;
+Route::get('/proyecto/aceptarAlumno',[proyectosController::class,'aceptarAlumno'])->name('aceptarAlumno')->middleware('auth');;
+Route::get('/proyecto/noaceptarAlumno',[proyectosController::class,'noaceptarAlumno'])->name('noaceptarAlumno')->middleware('auth');;
+Route::get('/proyecto/aceptar',[proyectosController::class,'aceptarProyecto'])->name('Aceptarproyecto')->middleware('auth');;
+Route::get('/proyecto/{codigo}',[proyectosController::class,'verProyectopage'])->name('verProyectoa')->middleware('auth');;
+
+
 
 
 // Route::post('/proyecto/img/subir/', [editor::class,'subirImg'])->name('subirImg');
 // Route::get('/proyecto/img/ver',[editor::class,'verImg']);
 // app/Http/routes.php | app/routes/web.php
-Route::get('/pdf',[PDFController::class,'createPDF']);
+Route::get('/pdf',[PDFController::class,'createPDF'])->name('pdfD');

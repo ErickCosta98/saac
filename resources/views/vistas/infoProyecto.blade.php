@@ -10,9 +10,13 @@
             <div class="card-body">
                     <form class="mb-3" action="{{ route('einfoProyecto') }}" method="post">
                         @csrf
+                        <input id="codigo" type="hidden" name="codigo" value="{{$datos[0]->codigo}}">
                     <div class="col-sm-8 mx-auto">
                         <label for="nombre">Nombre de proyecto</label>
                         <input type="text" name="nombre" id="nombre" class="form-control" value="{{$datos[0]->nombre}}">
+                        @error('nombre')
+                            {{$message}}
+                        @enderror
                         <br>
                         <div class="text-center">
                         <input class="btn btn-primary" type="submit" value="guardar">
@@ -69,6 +73,9 @@ $(function(){
     icon: 'success',
     title: 'Listo! :',
     text: '{{ Session::get("success") }}',
+    showConfirmButton: false,
+    timer: 1500
+
 })
 @endif
 });

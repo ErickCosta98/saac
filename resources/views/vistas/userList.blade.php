@@ -78,7 +78,7 @@ $(document).ready(function() {
            var data_form = tabla.row($(this).parents("tr")).data();
           //  console.log(data_form);
            
-           var ruta = `/usuarios/userdelete`;
+           var ruta = `usuarios/userdelete`;
           //  console.log(ruta)
            const swalWithBootstrapButtons = Swal.mixin({
   customClass: {
@@ -131,7 +131,7 @@ swalWithBootstrapButtons.fire({
            var data_form = tabla.row($(this).parents("tr")).data();
            console.log(data_form);
            
-           location.href = `/usuarios/edit/${data_form['id']}/${getQueryVariable('listas')}`
+           location.href = `usuarios/edit/${data_form['id']}/${getQueryVariable('listas')}`
 
            
     } );
@@ -149,4 +149,25 @@ function getQueryVariable(variable) {
 }
 
     </script>
+    <script>  
+      $(function(){
+          
+          @if(Session::has('error'))
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: '{{ Session::get("error") }}',
+              showConfirmButton: false,
+              timer: 1500
+          })
+          @endif
+          @if(Session::has('success'))
+          Swal.fire({
+          icon: 'success',
+          title: 'Listo! :',
+          text: '{{ Session::get("success") }}',
+      })
+      @endif
+      });
+          </script>
 @endsection

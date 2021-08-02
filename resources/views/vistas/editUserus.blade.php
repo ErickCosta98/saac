@@ -15,38 +15,21 @@
                 <div class="col-sm-8 mx-auto" >
                 <label for="">Nombre</label>
                 <input class="form-control" name="nombre" id="nombre" value="{{$user->nombre}}">
+                @error('nombre'){{$message}}@enderror
                 <br>
                 <label for="">Apellido paterno</label>
-                <input  class="form-control" type="text" name="apelPat" id="apelPa" value="{{$user->apelPat}}">
+                <input  class="form-control" type="text" name="apelPat" id="apelPat" value="{{$user->apelPat}}">
+                @error('apelPat'){{$message}}@enderror
+
                 <br>
                 <label for="">Apellido materno</label>
                 <input class="form-control" type="text" name="apelMat" id="apelMat" value="{{$user->apelMat}}">
+                @error('apelMat'){{$message}}@enderror
+
                 <label for="">Correo</label>
                 <input class="form-control" type="email" name="email" id="email" value="{{$user->email}}">
             </div>
-                @role('Admin')
-                <div class="col-sm-8 mx-auto">
-                    <label for="my-select">Rol</label>
-                    <select id="my-select" class="form-control" name="roles">
-                        @foreach ($roles as $rol)
-                        <option value="{{ $rol->id }}" <?php foreach($roleN as $key => $rolen){ if($rolen == $rol['name']){ echo 'selected';} };  ?>>{{ $rol['name'] }}</option>
-
-
-                        @endforeach
-                    </select>
-                </div>
-            @else
-                <div class="col-sm-8 mx-auto">
-                    <label for="my-select">Rol</label>
-                    <select id="my-select" class="form-control" name="roles">
-                        @foreach ($roles as $rol)
-                        @if ($rol->name != 'Admin' && $rol->name!='Capturista')
-                        <option value="{{ $rol->id }}" <?php foreach($roleN as $key => $rolen){ if($rolen == $rol['name']){ echo 'selected';} };  ?>>{{ $rol['name'] }}</option>
-                        @endif
-                        @endforeach
-                    </select>
-                </div>
-                @endrole
+               
                 <div class="text-center">
                     <br>
                 <input  class="btn btn-success" type="submit" value="Guardar">
@@ -57,4 +40,29 @@
 </div>
 
 
+@endsection
+@section('js')
+<script>  
+    $(function(){
+        
+        @if(Session::has('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{ Session::get("error") }}',
+            showConfirmButton: false,
+            timer: 1500,
+        })
+        @endif
+        @if(Session::has('success'))
+        Swal.fire({
+        icon: 'success',
+        title: 'Listo!',
+        text: '{{ Session::get("success") }}',
+        showConfirmButton: false,
+            timer: 1500,
+    })
+    @endif
+    });
+        </script>
 @endsection
