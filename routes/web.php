@@ -49,18 +49,18 @@ Route::post('/rolespermisos/updateRol',[usuarios::class,'updateRol'])->name('upd
 
 //Rutas proyectos
 Route::view('/proyectos','vistas.listaProyectos')->name('proyectoList')->middleware('auth');
-Route::get('/proyectos/lista',[proyectosController::class,'index'])->middleware('auth');;
-Route::view('/proyecto/nuevo', 'vistas.registroProyecto')->name('rProyecto')->middleware('auth');;
-Route::post('/proyecto/registro', [proyectosController::class,'regProyecto'])->name('nuevoProyecto')->middleware('auth');;
-Route::get('proyecto/editor/{id}',[editor::class,'show'])->name('editProyecto')->middleware('auth');;
-Route::post('/proyecto/editor/guardar',[editor::class,'guardar'])->name('saveContenido')->middleware('auth');;
-Route::get('/proyecto/informacion/{id}',[proyectosController::class,'informacion'])->name('infoProyecto')->middleware('auth');;
-Route::post('/proyecto/informacion/edit',[proyectosController::class,'informacionEdit'])->name('einfoProyecto')->middleware('auth');;
-Route::post('/proyecto/unirse',[proyectosController::class,'unirseProyecto'])->name('unirseP')->middleware('auth');;
-Route::get('/proyecto/aceptarAlumno',[proyectosController::class,'aceptarAlumno'])->name('aceptarAlumno')->middleware('auth');;
-Route::get('/proyecto/noaceptarAlumno',[proyectosController::class,'noaceptarAlumno'])->name('noaceptarAlumno')->middleware('auth');;
-Route::get('/proyecto/aceptar',[proyectosController::class,'aceptarProyecto'])->name('Aceptarproyecto')->middleware('auth');;
-Route::get('/proyecto/{codigo}',[proyectosController::class,'verProyectopage'])->name('verProyectoa')->middleware('auth');;
+Route::get('/proyectos/lista',[proyectosController::class,'index'])->middleware('auth');
+Route::view('/proyecto/nuevo', 'vistas.registroProyecto')->name('rProyecto')->middleware('auth');
+Route::post('/proyecto/registro', [proyectosController::class,'regProyecto'])->name('nuevoProyecto')->middleware('auth');
+Route::get('proyecto/editor/{id}',[editor::class,'show'])->name('editProyecto')->middleware('auth');
+Route::post('/proyecto/editor/guardar',[editor::class,'guardar'])->name('saveContenido')->middleware('auth');
+Route::get('/proyecto/informacion/{id}',[proyectosController::class,'informacion'])->name('infoProyecto')->middleware('auth');
+Route::post('/proyecto/informacion/edit',[proyectosController::class,'informacionEdit'])->name('einfoProyecto')->middleware('auth');
+Route::post('/proyecto/unirse',[proyectosController::class,'unirseProyecto'])->name('unirseP')->middleware('auth');
+Route::get('/proyecto/aceptarAlumno',[proyectosController::class,'aceptarAlumno'])->name('aceptarAlumno')->middleware('auth');
+Route::get('/proyecto/noaceptarAlumno',[proyectosController::class,'noaceptarAlumno'])->name('noaceptarAlumno')->middleware('auth');
+Route::get('/proyecto/aceptar',[proyectosController::class,'aceptarProyecto'])->name('Aceptarproyecto')->middleware('auth');
+Route::get('/proyecto/{codigo}',[proyectosController::class,'verProyectopage'])->name('verProyectoa');
 
 
 

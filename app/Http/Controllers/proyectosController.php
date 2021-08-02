@@ -117,7 +117,14 @@ class proyectosController extends Controller
         return response()->json('Aceptado');
 
     }
-    public function verProyectosa(){
+    public function verProyectosa(Request $request){
+        // return $request;
+        if(isset($request->search)){
+            $proyectos = proyectos::query()
+        ->where('nombre', 'LIKE', "%{$request->search}%")->paginate(9);
+        return view('welcome',compact('proyectos'));
+        
+    }
         $proyectos = proyectos::where('estatus','1')->select('codigo','nombre')->paginate(9);
         // return $proyectos;
         return view('welcome',compact('proyectos'));

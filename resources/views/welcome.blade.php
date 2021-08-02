@@ -4,6 +4,13 @@
 
 
 @section('contenido')
+@section('busqueda')
+<li class="nav-item">
+  <form action="{{ route('welcome') }}" method="get">
+  <input class="form-control" type="text" name="search" id="search" value="{{old('search')}}" />
+  <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
+</form></li>
+@endsection
 <div class="text-center mt-4">
     <h1 class="display-1  ">Proyectos Publicados</h1>
 </div>
