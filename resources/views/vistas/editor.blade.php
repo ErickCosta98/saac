@@ -1,5 +1,9 @@
 @extends('layouts.plantillaL')
-<script src="{{ asset('src/ckeditor/ckeditor.js') }}"></script>    
+<script src="{{ asset('src/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('src/js/intro.min.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('src/js/introjs.min.css') }}">
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.1.0/intro.min.js" integrity="sha512-vpRYyG0wwpTzFdMa1fWEV6GLWfJiiKG1W7dCPuIuvm2kbZMUA8jnokV84rdUft8AF6ih83/ItbmP/fDzNjVxsA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>     --}}
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.1.0/introjs.min.css" integrity="sha512-631ugrjzlQYCOP9P8BOLEMFspr5ooQwY3rgt8SMUa+QqtVMbY/tniEUOcABHDGjK50VExB4CNc61g5oopGqCEw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
 @section('contenido')
 <style>
     .container{
@@ -7,7 +11,7 @@
     }
 </style>
 <div class="container shadow-lg border-0 rounded-lg mt-3">
-
+  <button  id="btnayuda" class="btn btn-primary" name="ayuda" title="ayuda"><i class="fas fa-question-circle"></i></button>
     <form  action="{{ route('saveContenido')}}" method="POST">
         @csrf
         <input type="hidden" name="codigo" value="{{$datos[0]->codigo}}">
@@ -36,6 +40,23 @@
 @section('js')
 <script>
     $(document).ready(function () {
+      $('#btnayuda').on('click', function () {
+        // introJs().
+        introJs().setOptions({
+          nextLabel:'siguiente',
+          doneLabel:'Listo',
+          prevLabel:'Atras',
+          showProgress:true,
+           steps: [{
+    intro: "Hello world! </br> Esta es una guia rapida"
+  },{
+    element: document.querySelector('#cke_1_top'),
+    intro: "Esta es la barra de herramientas"
+  }
+]
+}).start();
+        
+      });
         $('#btnap').on('click', function () //Al hacer click sobre el boton button.form de la linea de arriba
           {
               var codigo = document.getElementById('btnap').value

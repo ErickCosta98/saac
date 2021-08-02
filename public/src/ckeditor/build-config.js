@@ -13,10 +13,10 @@
  * (1) https://ckeditor.com/cke4/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) https://ckeditor.com/cke4/builder/0a3247c300a94d5bb14df29378e27145
+ * (2) https://ckeditor.com/cke4/builder/3735200f58063582cd8d9dfb4ee219bb
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) https://ckeditor.com/cke4/builder/download/0a3247c300a94d5bb14df29378e27145
+ * (3) https://ckeditor.com/cke4/builder/download/3735200f58063582cd8d9dfb4ee219bb
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -25,7 +25,7 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'moono-lisa',
+	skin: 'office2013',
 	preset: 'full',
 	ignore: [
 		'.DS_Store',
@@ -67,7 +67,6 @@ var CKBUILDER_CONFIG = {
 		'contextmenu' : 1,
 		'copyformatting' : 1,
 		'dialogadvtab' : 1,
-		'div' : 1,
 		'editorplaceholder' : 1,
 		'elementspath' : 1,
 		'enterkey' : 1,
@@ -75,14 +74,11 @@ var CKBUILDER_CONFIG = {
 		'exportpdf' : 1,
 		'filebrowser' : 1,
 		'find' : 1,
-		'flash' : 1,
 		'floatingspace' : 1,
 		'font' : 1,
 		'format' : 1,
-		'forms' : 1,
 		'horizontalrule' : 1,
 		'htmlwriter' : 1,
-		'iframe' : 1,
 		'indentblock' : 1,
 		'indentlist' : 1,
 		'justify' : 1,
@@ -92,7 +88,6 @@ var CKBUILDER_CONFIG = {
 		'liststyle' : 1,
 		'magicline' : 1,
 		'maximize' : 1,
-		'newpage' : 1,
 		'pagebreak' : 1,
 		'pastebase64' : 1,
 		'pastefromgdocs' : 1,
@@ -104,10 +99,8 @@ var CKBUILDER_CONFIG = {
 		'removeformat' : 1,
 		'resize' : 1,
 		'save' : 1,
-		'save-to-pdf' : 1,
 		'scayt' : 1,
 		'selectall' : 1,
-		'showblocks' : 1,
 		'showborders' : 1,
 		'smiley' : 1,
 		'sourcearea' : 1,
