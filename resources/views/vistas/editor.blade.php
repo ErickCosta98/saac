@@ -11,7 +11,8 @@
     }
 </style>
 <div class="container shadow-lg border-0 rounded-lg mt-3">
-  <button  id="btnayuda" class="btn btn-primary" name="ayuda" title="ayuda"><i class="fas fa-question-circle"></i></button>
+  <a id="btnayuda" class="btn" name="ayuda" title="ayuda"><i class="fas fa-question-circle" ></i></a>
+  {{-- <button  id="btnayuda" class="btn btn-secondary rounded-circle" name="ayuda" title="ayuda"><i class="fas fa-question-circle"></i></button> --}}
     <form  action="{{ route('saveContenido')}}" method="POST">
         @csrf
         <input type="hidden" name="codigo" value="{{$datos[0]->codigo}}">
