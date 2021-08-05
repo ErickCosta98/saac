@@ -1,9 +1,7 @@
 @extends('layouts.plantillaL')
 
-
-
-
 @section('contenido')
+
 @section('busqueda')
 <li class="nav-item">
   <form action="{{ route('welcome') }}" method="get">
@@ -12,7 +10,7 @@
 </form></li>
 @endsection
 <div class="text-center mt-4">
-    <h1 class="display-1  ">Proyectos Publicados</h1>
+    <h1 class="display-1  "> <strong>Proyectos Publicados</strong></h1>
 </div>
 <div class="container">
 <div class="row row-cols-1 row-cols-md-3 g-4 mx-auto">

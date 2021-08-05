@@ -5,7 +5,7 @@
     <div class="row ">
       <h3 class="mt-3" style="text-align: center;">Lista de proyectos</h3>
     </div> 
-    @role('Alumno')
+    @role('Alumno|Profesor')
     <form class="col-3 mb-4" action="{{ route('unirseP') }}" method="post">
       @csrf
       <label for="">Unirse a un proyecto</label>

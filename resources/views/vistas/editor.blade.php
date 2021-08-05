@@ -17,7 +17,7 @@
         @csrf
         <input type="hidden" name="codigo" value="{{$datos[0]->codigo}}">
         <br>
-        <textarea class="" name="editor" id="editor" cols="80" rows="70"  >{{$datos[0]->contenido}}</textarea>
+        <textarea class="" name="editor" id="editor" cols="80" rows="70">{{$datos[0]->contenido}}</textarea>
         <br>
         
        <img src=""  alt="" sizes="" srcset="">
@@ -28,6 +28,9 @@
    </div>
    <br>
     @endcan
+    {{-- @foreach ($alumno as $alm)
+    <p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">{{$alm->nombre." ".$alm->apelPat." ".$alm->apelMat}} </span></span></span></p>     
+    @endforeach --}}
     
 </div>
 <script>

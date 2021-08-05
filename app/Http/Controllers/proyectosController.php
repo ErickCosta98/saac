@@ -49,7 +49,7 @@ class proyectosController extends Controller
         $usp->rol = Auth::user()->roles[0]->name;
         $usp->codigo = $proyecto->codigo;
         $usp->save();
-        return redirect()->route('rProyecto')->with('success', $proyecto->codigo);
+        return redirect()->route('proyectoList')->with('success', $proyecto->codigo);
     }
 
     public function informacionEdit(Request $request)
