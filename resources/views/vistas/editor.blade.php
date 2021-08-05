@@ -17,10 +17,10 @@
         @csrf
         <input type="hidden" name="codigo" value="{{$datos[0]->codigo}}">
         <br>
-        <textarea class="" name="editor" id="editor" cols="80" rows="70" >{{$datos[0]->contenido}}</textarea>
+        <textarea class="" name="editor" id="editor" cols="80" rows="70"  >{{$datos[0]->contenido}}</textarea>
         <br>
         
-       
+       <img src=""  alt="" sizes="" srcset="">
     </form>
     @can('authProyectos')
     <div class="text-center ">
@@ -49,10 +49,62 @@
           prevLabel:'Atras',
           showProgress:true,
            steps: [{
-    intro: "Hello world! </br> Esta es una guia rapida"
+             title:'Guia',
+    intro: "Esta es una guia rapida para agregar imagenes o insertar una nueva pagina"
   },{
-    element: document.querySelector('#cke_1_top'),
-    intro: "Esta es la barra de herramientas"
+    title:'Guia',
+    intro: "Si necesitas agregar una imagen tienes 2 opciones"
+  },
+  {
+    title:'Opcion 1',
+    element: document.querySelector('#cke_69'),
+    intro: "Aqui podras subir una foto desde tus archivos o desde una url"
+  },{
+    title:"Opcion 1",
+    element: document.querySelector('#cke_69'),
+    intro: '<img src="{{ asset("img/img1.png") }}"  width="350" alt="">',
+    position: 'left'
+
+  },{
+    title:"Opcion 1",
+    element: document.querySelector('#cke_69'),
+    intro: 'Despues de subir la imagen necesitas aignar un tamaño',
+    position: 'left'
+
+  },{
+    title:"Opcion 1",
+    element: document.querySelector('#cke_69'),
+    intro: '<img src="{{ asset("img/gif1.gif") }}"  width="350" alt="">',
+    position: 'left'
+
+  },
+  {
+    title:'Opcion 2',
+    element: document.querySelector('#cke_76'),
+    intro: "Aqui podras subir una foto desde una url"
+  },{
+    title:"Opcion 2",
+    element: document.querySelector('#cke_76'),
+    intro: '<img src="{{ asset("img/img2.png") }}"  width="350" alt="">',
+    position: 'left'
+
+  },{
+    title:"Opcion 2",
+    element: document.querySelector('#cke_76'),
+    intro: 'Despues de subir la imagen necesitas aignar un tamaño',
+    position: 'left'
+
+  },{
+    title:"Opcion 2",
+    element: document.querySelector('#cke_76'),
+    intro: '<img src="{{ asset("img/gif2.gif") }}"  width="350" alt="">',
+    position: 'left'
+
+  },
+  {
+    title:'Salto de pagina',
+    element: document.querySelector('#cke_68'),
+    intro: "Aqui podras añadir una nueva pagina"
   }
 ]
 }).start();

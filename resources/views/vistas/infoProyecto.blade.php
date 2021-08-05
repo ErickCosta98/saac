@@ -39,10 +39,10 @@
                         @if ($proyecto->estatus == '2')
                         <td>
                             <a href="{{ route('aceptarAlumno', ['id'=>$proyecto->id,'codigo'=>$datos[0]->codigo]) }}" class="btn btn-primary">Aceptar</a>
-                            <a href="{{ route('noaceptarAlumno', ['id'=>$proyecto->id,'codigo'=>$datos[0]->codigo]) }}" class="btn btn-warning">No aceptar</a>
+                            <button value="{{'id='.$proyecto->id.'&codigo='.$datos[0]->codigo}}" id="btnEliminar" class="btn btn-danger">No aceptar</button>
                         </td> 
                         @else
-                            <td><a href="{{ route('noaceptarAlumno', ['id'=>$proyecto->id,'codigo'=>$datos[0]->codigo]) }}" class="btn btn-danger">Eliminar</a></td>
+                            <td><button value="{{'id='.$proyecto->id.'&codigo='.$datos[0]->codigo}}" id="btnEliminar" class="btn btn-danger">Eliminar</button></td>
                         @endif
                         
                         @endforeach
@@ -55,7 +55,61 @@
 </div>
 @endsection
 @section('js')
+<script >
+    $(document).ready(function () {
+        $('#tabla').on('click', '#btnEliminar', function () //Al hacer click sobre el boton button.form de la linea de arriba
+        {
+            ruta = '<?php echo route('noaceptarAlumno'); ?>'
+           console.log(ruta);
+          var data = document.getElementById('btnEliminar').value
+           console.log(data)
+           const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
 
+swalWithBootstrapButtons.fire({
+  title: 'No aceptar',
+  text: "No se podra revertir",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Si',
+  cancelButtonText: 'No',
+  reverseButtons: true
+}).then((result) => {
+  if (result.isConfirmed) {
+    $.ajax({
+      type: "get",
+      url: ruta,
+      data: data,
+      success: function (data) {
+        console.log(data)
+        swalWithBootstrapButtons.fire(
+      'Eliminado!',
+    )    
+    setTimeout(function(){
+      location.reload();
+    },2000,"JavaScript");
+      }
+    });
+    
+  } else if (
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.cancel
+  ) {
+    swalWithBootstrapButtons.fire(
+      'Cancelado',
+
+    )
+  }
+})
+           
+    } );
+    });
+</script>
 <script>  
 $(function(){
     
