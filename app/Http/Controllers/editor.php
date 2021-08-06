@@ -17,19 +17,27 @@ class editor extends Controller
         $profesor = DB::select('Select users.* from users inner join users_proyectos on users_proyectos.codigo = ? and rol ="Profesor" and users.id = users_proyectos.fk_userid',[$id]);
         $alumno = DB::select('Select users.* from users inner join users_proyectos on users_proyectos.codigo = ? and rol ="Alumno" and users.id = users_proyectos.fk_userid',[$id]);
         // return $datos[0]->codigo;
-//    $dat = '<p style="text-align:right"><span style="font-size:8pt"><span style="font-family:Arial"><span style="color:#000000">PROYECTOS DE INVESTIGACI&Oacute;N ACAD&Eacute;MICOS Y DE INTERVENCI&Oacute;N PARA LA MEJORA CONTINUA</span></span></span><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000"> Edici&oacute;n 7, febrero 2021.</span></span></span></p>';
+        $dat = '<div id="dvs">&nbsp;</div>';
 
-//     // $dat =   $dat.;
-//        foreach($profesor as $prf){
-//             $dat=$dat.'<p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">'.$prf->nombre." ".$prf->apelPat." ".$prf->apelMat.'</span></span></span></p>';  
-//         }
-//         $dat=$dat.'<p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">Estudiante(s)</span></span></span></p>';
-//     foreach($alumno as $alm){
-//             $dat=$dat.'<p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">'.$alm->nombre." ".$alm->apelPat." ".$alm->apelMat.'</span></span></span></p>' ;    
-//     }
+        $dat =   $dat.'<p style="text-align:center"><strong><span style="font-size:18px"><span style="font-family:Arial"><span style="color:#000000">'.$datos[0]->nombre.'</span></span></span></strong></p>
+
+            
+    <hr/><p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">Docente(s)</span></span></span></p>';
+       foreach($profesor as $prf){
+            $dat=$dat.'<p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">'.$prf->nombre." ".$prf->apelPat." ".$prf->apelMat.'</span></span></span></p>';  
+        }
+        $dat=$dat.'<p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">Estudiante(s)</span></span></span></p>';
+    foreach($alumno as $alm){
+            $dat=$dat.'<p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">'.$alm->nombre." ".$alm->apelPat." ".$alm->apelMat.'</span></span></span></p>' ;    
+    }
+        $dat = $dat.'<div id="dvs">&nbsp;</div>';
             // return $dat;
+            $a = mb_split('<div id="dvs">&nbsp;</div>',$datos[0]->contenido);
+            // return $a;
+        $contenido = $a[0].$dat.$a[2];
         session(['codigo' => $datos[0]->codigo]);
-        return view('vistas.editor',compact('datos','profesor'));
+
+        return view('vistas.editor',compact('contenido'));
         // return $request;
     }
    

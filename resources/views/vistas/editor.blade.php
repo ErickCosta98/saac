@@ -15,16 +15,16 @@
   {{-- <button  id="btnayuda" class="btn btn-secondary rounded-circle" name="ayuda" title="ayuda"><i class="fas fa-question-circle"></i></button> --}}
     <form  action="{{ route('saveContenido')}}" method="POST">
         @csrf
-        <input type="hidden" name="codigo" value="{{$datos[0]->codigo}}">
+        <input type="hidden" name="codigo" value="{{Session::get('codigo')}}">
         <br>
-        <textarea class="" name="editor" id="editor" cols="80" rows="70">{{$datos[0]->contenido}}</textarea>
+        <textarea class="" name="editor" id="editor" cols="80" rows="70">{{$contenido}}</textarea>
         <br>
         
        <img src=""  alt="" sizes="" srcset="">
     </form>
     @can('authProyectos')
     <div class="text-center ">
-      <button id="btnap" class="btn btn-outline-success" value="{{$datos[0]->codigo}}">Aprobar</button>
+      <button id="btnap" class="btn btn-outline-success" value="{{Session::get('codigo')}}">Aprobar</button>
    </div>
    <br>
     @endcan
@@ -44,6 +44,7 @@
 @section('js')
 <script>
     $(document).ready(function () {
+      
       $('#btnayuda').on('click', function () {
         // introJs().
         introJs().setOptions({

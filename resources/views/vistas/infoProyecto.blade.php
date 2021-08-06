@@ -12,7 +12,7 @@
                         @csrf
                         <input id="codigo" type="hidden" name="codigo" value="{{$datos[0]->codigo}}">
                     <div class="col-sm-8 mx-auto">
-                        <label for="nombre">Nombre de proyecto</label>
+                        <label for="nombre">Informacion </label>
                         <input type="text" name="nombre" id="nombre" class="form-control" value="{{$datos[0]->nombre}}">
                         @error('nombre')
                             {{$message}}
@@ -28,23 +28,30 @@
                           <tr>
                             <th>Nombre</th>
                             <th>Apellidos</th>
+                            <th>Rol</th>
                             <th>acciones</th>
                           </tr>
                         </thead>
                         <tbody>
                         @foreach ( $alumnos as $proyecto )
+                        @if ($proyecto->id != Auth::user()->id)
                         <tr>
-                        <td>{{$proyecto->nombre}}</td>
-                        <td>{{$proyecto->apelPat." ".$proyecto->apelPat}}</td>
-                        @if ($proyecto->estatus == '2')
-                        <td>
-                            <a href="{{ route('aceptarAlumno', ['id'=>$proyecto->id,'codigo'=>$datos[0]->codigo]) }}" class="btn btn-primary">Aceptar</a>
-                            <button value="{{'id='.$proyecto->id.'&codigo='.$datos[0]->codigo}}" id="btnEliminar" class="btn btn-danger">No aceptar</button>
-                        </td> 
-                        @else
-                            <td><button value="{{'id='.$proyecto->id.'&codigo='.$datos[0]->codigo}}" id="btnEliminar" class="btn btn-danger">Eliminar</button></td>
+                          <td>{{$proyecto->nombre}}</td>
+                          <td>{{$proyecto->apelPat." ".$proyecto->apelPat}}</td>
+                          <td>{{$proyecto->rol}}</td>
+                          @if ($proyecto->estatus == '2')
+                          <td>
+                              <a href="{{ route('aceptarAlumno', ['id'=>$proyecto->id,'codigo'=>$datos[0]->codigo]) }}" class="btn btn-primary">Aceptar</a>
+                              <button value="{{'id='.$proyecto->id.'&codigo='.$datos[0]->codigo}}" id="btnEliminar" class="btn btn-danger">No aceptar</button>
+                          </td> 
+                          @elseif ($proyecto->estatus == '1')
+                              <td><button value="{{'id='.$proyecto->id.'&codigo='.$datos[0]->codigo}}" id="btnEliminar" class="btn btn-danger">Eliminar</button></td>
+                          @endif
+                          @if ($proyecto->estatus == '0')
+                          <td><a href="{{ route('aceptarAlumno', ['id'=>$proyecto->id,'codigo'=>$datos[0]->codigo,'res'=>true]) }}" class="btn btn-primary">Restablecer</a></td>
+                              
+                          @endif
                         @endif
-                        
                         @endforeach
                             </tr>
                         </tbody>

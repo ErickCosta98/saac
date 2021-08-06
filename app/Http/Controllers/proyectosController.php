@@ -20,7 +20,7 @@ class proyectosController extends Controller
     {
         $user = User::find(Auth::user()->id);
        
-        if ($user->hasRole('Verificador')) {
+        if ($user->hasRole('Verificador|Admin')) {
             $proyectos = proyectos::select('codigo','nombre')->where('estatus','0');
             return datatables()->of($proyectos)->toJson();
         }
@@ -61,7 +61,17 @@ class proyectosController extends Controller
     }
     public function informacion($id)
     {
-        $alumnos = DB::select("select users.*,users_proyectos.estatus from users inner join users_proyectos on users_proyectos.codigo = ? and users_proyectos.rol = 'Alumno' and users_proyectos.estatus != '0' and users_proyectos.fk_userid = users.id ", [$id]);
+        $user = User::find(Auth::user()->id);
+       
+        if ($user->hasRole('Admin')) {
+            $alumnos = DB::select("select users.nombre,users.apelPat,users.apelMat,users.id,users_proyectos.rol,users_proyectos.estatus from users inner join users_proyectos on users_proyectos.codigo = ?   and users_proyectos.fk_userid = users.id ", [$id]);
+        //    return $alumnos;
+        $datos = DB::select('select nombre,codigo from proyectos where codigo = ?', [$id]);
+        // return $datos[0]->codigo;
+        session(['codigo' => $datos[0]->codigo]);
+        return view('vistas.infoProyecto', compact('alumnos', 'datos'));
+        }   
+        $alumnos = DB::select("select users.nombre,users.apelPat,users.apelMat,users.id,users_proyectos.rol,users_proyectos.estatus from users inner join users_proyectos on users_proyectos.codigo = ?  and users_proyectos.estatus != '0' and users_proyectos.fk_userid = users.id ", [$id]);
         //    return $alumnos;
         $datos = DB::select('select nombre,codigo from proyectos where codigo = ?', [$id]);
         // return $datos[0]->codigo;
@@ -97,6 +107,11 @@ class proyectosController extends Controller
 
     public function aceptarAlumno(Request $request)
     { 
+        if(isset($request->res)){
+            users_proyectos::where('fk_userid',$request->id)->where('codigo', $request->codigo)->update(['estatus' => '2']);
+
+            return back();            
+        }
         // return $request;
         users_proyectos::where('fk_userid',$request->id)->where('codigo', $request->codigo)->update(['estatus' => '1']);
 
