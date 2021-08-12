@@ -61,53 +61,53 @@
   },
   {
     title:'Opcion 1',
-    element: document.querySelector('#cke_69'),
+    element: document.querySelector('#cke_70'),
     intro: "Aqui podras subir una foto desde tus archivos o desde una url"
   },{
     title:"Opcion 1",
-    element: document.querySelector('#cke_69'),
+    element: document.querySelector('#cke_70'),
     intro: '<img src="{{ asset("img/img1.png") }}"  width="350" alt="">',
     position: 'left'
 
   },{
     title:"Opcion 1",
-    element: document.querySelector('#cke_69'),
+    element: document.querySelector('#cke_70'),
     intro: 'Despues de subir la imagen necesitas aignar un tamaño',
     position: 'left'
 
   },{
     title:"Opcion 1",
-    element: document.querySelector('#cke_69'),
+    element: document.querySelector('#cke_70'),
     intro: '<img src="{{ asset("img/gif1.gif") }}"  width="350" alt="">',
     position: 'left'
 
   },
   {
     title:'Opcion 2',
-    element: document.querySelector('#cke_76'),
+    element: document.querySelector('#cke_77'),
     intro: "Aqui podras subir una foto desde una url"
   },{
     title:"Opcion 2",
-    element: document.querySelector('#cke_76'),
+    element: document.querySelector('#cke_77'),
     intro: '<img src="{{ asset("img/img2.png") }}"  width="350" alt="">',
     position: 'left'
 
   },{
     title:"Opcion 2",
-    element: document.querySelector('#cke_76'),
+    element: document.querySelector('#cke_77'),
     intro: 'Despues de subir la imagen necesitas aignar un tamaño',
     position: 'left'
 
   },{
     title:"Opcion 2",
-    element: document.querySelector('#cke_76'),
+    element: document.querySelector('#cke_77'),
     intro: '<img src="{{ asset("img/gif2.gif") }}"  width="350" alt="">',
     position: 'left'
 
   },
   {
     title:'Salto de pagina',
-    element: document.querySelector('#cke_68'),
+    element: document.querySelector('#cke_69'),
     intro: "Aqui podras añadir una nueva pagina"
   }
 ]

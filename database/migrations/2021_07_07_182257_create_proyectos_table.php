@@ -17,17 +17,7 @@ class CreateProyectosTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('codigo');
-            $table->longText('contenido')->nullable()->default('<p style="text-align:right"><span style="font-size:8pt"><span style="font-family:Arial"><span style="color:#000000">PROYECTOS DE INVESTIGACI&Oacute;N ACAD&Eacute;MICOS Y DE INTERVENCI&Oacute;N PARA LA MEJORA CONTINUA</span></span></span><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000"> Edici&oacute;n 7, febrero 2021.</span></span></span></p>
-            <div id="dvs">&nbsp;</div>
-            <p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">T&Iacute;TULO</span></span></span></p>
-            
-            <p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">El t&iacute;tulo indica de forma breve y concreta de lo que trata todo el art&iacute;culo, tiene que ser lo m&aacute;s espec&iacute;fico posible.</span></span></span></p>
-            
-            <hr/>
-            <p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">Nombre completo del docente 1</span></span></span></p>
-            
-            <p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">Nombre (s) completo (s) del (los) estudiante (s) 2</span></span></span></p>
-            <div id="dvs">&nbsp;</div>
+            $table->longText('contenido')->nullable()->default('
             <p style="text-align:center"><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000"><strong>RESUMEN</strong></span></span></span></p>
             
             <p>&nbsp;</p>

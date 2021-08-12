@@ -44,6 +44,14 @@ class Helper
         }
         return $prefix.$zeros.$last_number;
     }
+
+    
+    // public static function pregDoc($string){
+
+    //     return preg_match("/\A[\d\D\s\S\w\W].[<div id=dvs>&nbsp;<\/div>].[\d\D\s\S\w\W].[<div id=dvs>&nbsp;<\/div>].[\d\D\s\S\w\W]\z/", $string);
+
+    // }
+
   
 }
 ?>

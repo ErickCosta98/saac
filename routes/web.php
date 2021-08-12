@@ -65,6 +65,9 @@ Route::get('/proyecto/{codigo}',[proyectosController::class,'verProyectopage'])-
 
 
 
+
+
+
 // Route::post('/proyecto/img/subir/', [editor::class,'subirImg'])->name('subirImg');
 // Route::get('/proyecto/img/ver',[editor::class,'verImg']);
 // app/Http/routes.php | app/routes/web.php

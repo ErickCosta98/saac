@@ -127,7 +127,29 @@ class proyectosController extends Controller
     }
 
     public function aceptarProyecto(Request $request){
-         proyectos::where('codigo',$request->codigo)->update(['estatus'=>'1']);
+         $datos = DB::select('select contenido,codigo,nombre from proyectos where codigo = ?', [$request->codigo]);
+        $profesor = DB::select('Select users.* from users inner join users_proyectos on users_proyectos.codigo = ? and rol ="Profesor" and users.id = users_proyectos.fk_userid',[$request->codigo]);
+        $alumno = DB::select('Select users.* from users inner join users_proyectos on users_proyectos.codigo = ? and rol ="Alumno" and users.id = users_proyectos.fk_userid',[$request->codigo]);
+        // return $datos[0]->codigo;
+
+        // return Helper::pregDoc($datos[0]->contenido);
+        $dat = '';
+
+        $dat =   $dat.'<p style="text-align:center"><strong><span style="font-size:18px"><span style="font-family:Arial"><span style="color:#000000">'.$datos[0]->nombre.'</span></span></span></strong></p>
+
+            
+    <hr/><p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">Docente(s)</span></span></span></p>';
+       foreach($profesor as $prf){
+            $dat=$dat.'<p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">'.$prf->nombre." ".$prf->apelPat." ".$prf->apelMat.'</span></span></span></p>';  
+        }
+        $dat=$dat.'<p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">Estudiante(s)</span></span></span></p>';
+    foreach($alumno as $alm){
+            $dat=$dat.'<p><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">'.$alm->nombre." ".$alm->apelPat." ".$alm->apelMat.'</span></span></span></p>' ;    
+    }
+        // $dat = $dat.'<div id="dvs">&nbsp;</div>';
+        $contenido = $dat.$datos[0]->contenido;
+        proyectos::where('codigo',$request->codigo)->update(['estatus'=>'1','contenido'=>$contenido]);
+
 
         return response()->json('Aceptado');
 
@@ -145,6 +167,7 @@ class proyectosController extends Controller
         return view('welcome',compact('proyectos'));
     }
     public function verProyectopage($codigo){
+        
         $proyecto = proyectos::where('codigo',$codigo)->first();
         // return $proyecto;
         return view('vistas.page',compact('proyecto'));
