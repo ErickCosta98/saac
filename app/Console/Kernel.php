@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
 
     /**
      * Register the commands for the application.
-     *
+     * Proyecto creado por Erick Fernando Hernandez Costa
      * @return void
      */
     protected function commands()

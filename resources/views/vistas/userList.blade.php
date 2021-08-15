@@ -57,7 +57,7 @@ $(document).ready(function() {
         responsive:true,
         autoWidth:false,  
         language: {
-            url: 'DataTables/es-mx.json'
+            url: '{{ asset('DataTables1/es-mex.json') }}'
         },
 
         ajax:`{{ asset('${ruta}') }}`,
@@ -107,9 +107,7 @@ swalWithBootstrapButtons.fire({
         swalWithBootstrapButtons.fire(
       'Eliminado!',
     )    
-    setTimeout(function(){
-      location.reload();
-    },2000,"JavaScript");
+    tabla.ajax.reload(null,false)
       }
     });
     

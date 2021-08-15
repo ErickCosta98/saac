@@ -18,6 +18,11 @@
                             {{$message}}
                         @enderror
                         <br>
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Descripcion.." id="floatingTextarea2" name='descripcion' style="height: 100px"></textarea>
+                            <label for="floatingTextarea2">Descripcion del proyecto(opcional)</label>
+                          </div>
+                        <br>
                         <div class="text-center">
                         <input class="btn btn-primary" type="submit" value="guardar">
                         </div>

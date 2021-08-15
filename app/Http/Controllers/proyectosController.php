@@ -9,7 +9,6 @@ use App\Models\users_proyectos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException as ValidationValidationException;
 
 
@@ -39,6 +38,7 @@ class proyectosController extends Controller
         $proyecto->nombre = $request->nombre;
         $prefix = strtoupper(substr(trim($request->nombre), 1, 3));
         $proyecto->codigo = Helper::IDGenerator(new proyectos, 'codigo', 4, $prefix);
+        $proyecto->descripcion = $request->descripcion;
         $proyecto->save();
         // if (!Storage::disk('public')->exists('pdf/' . $proyecto->codigo)) {
         //     Storage::disk('public')->makeDirectory('pdf/' . $proyecto->codigo);
@@ -56,7 +56,7 @@ class proyectosController extends Controller
     {
         $request->validate(['nombre' => ['required', 'string', 'min:8', 'max:255'],
     ]);
-        proyectos::where('codigo',$request->codigo)->update(['nombre'=>$request->nombre]);
+        proyectos::where('codigo',$request->codigo)->update(['nombre'=>$request->nombre,'descripcion'=>$request->descripcion]);
         return back()->with('success','cambios guardados');
     }
     public function informacion($id)
@@ -66,16 +66,23 @@ class proyectosController extends Controller
         if ($user->hasRole('Admin')) {
             $alumnos = DB::select("select users.nombre,users.apelPat,users.apelMat,users.id,users_proyectos.rol,users_proyectos.estatus from users inner join users_proyectos on users_proyectos.codigo = ?   and users_proyectos.fk_userid = users.id ", [$id]);
         //    return $alumnos;
-        $datos = DB::select('select nombre,codigo from proyectos where codigo = ?', [$id]);
-        // return $datos[0]->codigo;
-        session(['codigo' => $datos[0]->codigo]);
+        $datos = DB::select('select nombre,codigo,descripcion from proyectos where codigo = ?', [$id]);
+        // return strlen( $datos[0]->descripcion);
+        if(strlen( $datos[0]->descripcion) < 1 || strlen(trim($datos[0]->descripcion)) < 1  ){
+            // return strlen( $datos[0]->descripcion);
+            session(['error'=>'Porfavor agrega una descripcion']);
+        return view('vistas.infoProyecto', compact('alumnos', 'datos'));
+        }
         return view('vistas.infoProyecto', compact('alumnos', 'datos'));
         }   
         $alumnos = DB::select("select users.nombre,users.apelPat,users.apelMat,users.id,users_proyectos.rol,users_proyectos.estatus from users inner join users_proyectos on users_proyectos.codigo = ?  and users_proyectos.estatus != '0' and users_proyectos.fk_userid = users.id ", [$id]);
         //    return $alumnos;
-        $datos = DB::select('select nombre,codigo from proyectos where codigo = ?', [$id]);
+        $datos = DB::select('select nombre,codigo,descripcion from proyectos where codigo = ?', [$id]);
         // return $datos[0]->codigo;
-        session(['codigo' => $datos[0]->codigo]);
+        if(strlen($datos[0]->descripcion) == 0 || strlen(trim($datos[0]->descripcion)) == 0 ){
+            session(['error'=>'Porfavor agrega una descripcion']);
+        return view('vistas.infoProyecto', compact('alumnos', 'datos'));
+        }
         return view('vistas.infoProyecto', compact('alumnos', 'datos'));
     }
 
@@ -162,7 +169,8 @@ class proyectosController extends Controller
         return view('welcome',compact('proyectos'));
         
     }
-        $proyectos = proyectos::where('estatus','1')->select('codigo','nombre')->paginate(9);
+
+        $proyectos = proyectos::where('estatus','1')->select('codigo','nombre','updated_at')->paginate(9);
         // return $proyectos;
         return view('welcome',compact('proyectos'));
     }

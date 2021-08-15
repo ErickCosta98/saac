@@ -5,7 +5,7 @@
     <div class="row ">
         <div class="card mx-auto shadow-lg border-0 rounded-lg mt-3">
             <div class="card-header mt-3">
-                <h4 class="text-center font-weight-light my-2">Nuevo proyecto</h4>
+                <h4 class="text-center font-weight-light my-2">Informacion de proyecto</h4>
             </div>
             <div class="card-body">
                     <form class="mb-3" action="{{ route('einfoProyecto') }}" method="post">
@@ -17,6 +17,11 @@
                         @error('nombre')
                             {{$message}}
                         @enderror
+                        <br>
+                        <div class="form-floating">
+                          <textarea class="form-control" placeholder="Descripcion.." id="floatingTextarea2" name='descripcion' style="height: 100px">{{$datos[0]->descripcion}}</textarea>
+                          <label for="floatingTextarea2">Descripcion del proyecto</label>
+                        </div>
                         <br>
                         <div class="text-center">
                         <input class="btn btn-primary" type="submit" value="guardar">
@@ -97,9 +102,8 @@ swalWithBootstrapButtons.fire({
         swalWithBootstrapButtons.fire(
       'Eliminado!',
     )    
-    setTimeout(function(){
-      location.reload();
-    },2000,"JavaScript");
+    $("#tabla").load(location.href + " #tabla");
+   
       }
     });
     
@@ -125,9 +129,8 @@ $(function(){
         icon: 'error',
         title: 'Oops...',
         text: '{{ Session::get("error") }}',
-        showConfirmButton: false,
-        timer: 1500
     })
+    
     @endif
     @if(Session::has('success'))
     Swal.fire({
@@ -141,4 +144,8 @@ $(function(){
 @endif
 });
     </script>
+@if (Session::has('error'))
+    {{Session::forget('error')}}
+@endif
+
 @endsection

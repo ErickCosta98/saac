@@ -48,6 +48,7 @@
   <div class="mt-4"></div>
     </div>
   </div>
+  
 @endsection
 
 @section('js')
@@ -59,7 +60,7 @@
           responsive:true,
           autoWidth:false,  
           language: {
-              url: 'DataTables/es-mx.json'
+              url: '{{ asset('DataTables1/es-mex.json') }}'
           },
   
           ajax:`{{ asset('${ruta}') }}`,

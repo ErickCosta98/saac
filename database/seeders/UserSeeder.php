@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'apelPat' =>  'Admin',
             'apelMat'=> 'Admin',
             'usuario' => 'Admin@adm00', 
-            'password' => Hash::make('Ulili2007'),
+            'password' => Hash::make('Admin2021'),
         ])->syncRoles([1]);
 
         User::create([
@@ -33,35 +33,35 @@ class UserSeeder extends Seeder
             'estatus' => '0', 
         ]);
 
-        User::create([
-            'nombre' => 'Erick',
-            'apelPat' =>  'Hernandez',
-            'apelMat'=> 'costa',
-            'usuario' => Helper::userGenerator(new User,'usuario',2,'USR'),
-            'password' => Hash::make('Ulili2098'),
-        ])->syncRoles([2]);
+        // User::create([
+        //     'nombre' => 'Erick',
+        //     'apelPat' =>  'Hernandez',
+        //     'apelMat'=> 'costa',
+        //     'usuario' => Helper::userGenerator(new User,'usuario',2,'USR'),
+        //     'password' => Hash::make('Ulili2098'),
+        // ])->syncRoles([2]);
 
-        User::create([
-            'nombre' => 'Erick',
-            'apelPat' =>  'Hernandez',
-            'apelMat'=> 'Costa',
-            'usuario' => Helper::userGenerator(new User,'usuario',2,'USR'),
-            'password' => Hash::make('Ulili2098'),
-        ])->syncRoles([3]);
-        User::create([
-            'nombre' => 'Erick',
-            'apelPat' =>  'Hernandez',
-            'apelMat'=> 'Costa',
-            'usuario' => Helper::userGenerator(new User,'usuario',2,'USR'),
-            'password' => Hash::make('Ulili2098'),
-        ])->syncRoles([4]);
-        User::create([
-            'nombre' => 'Erick',
-            'apelPat' =>  'Hernandez',
-            'apelMat'=> 'Costa',
-            'usuario' => Helper::userGenerator(new User,'usuario',2,'USR'),
-            'password' => Hash::make('Ulili2098'),
-        ])->syncRoles([5]);
+        // User::create([
+        //     'nombre' => 'Erick',
+        //     'apelPat' =>  'Hernandez',
+        //     'apelMat'=> 'Costa',
+        //     'usuario' => Helper::userGenerator(new User,'usuario',2,'USR'),
+        //     'password' => Hash::make('Ulili2098'),
+        // ])->syncRoles([3]);
+        // User::create([
+        //     'nombre' => 'Erick',
+        //     'apelPat' =>  'Hernandez',
+        //     'apelMat'=> 'Costa',
+        //     'usuario' => Helper::userGenerator(new User,'usuario',2,'USR'),
+        //     'password' => Hash::make('Ulili2098'),
+        // ])->syncRoles([4]);
+        // User::create([
+        //     'nombre' => 'Erick',
+        //     'apelPat' =>  'Hernandez',
+        //     'apelMat'=> 'Costa',
+        //     'usuario' => Helper::userGenerator(new User,'usuario',2,'USR'),
+        //     'password' => Hash::make('Ulili2098'),
+        // ])->syncRoles([5]);
 
     }
 }

@@ -144,6 +144,7 @@ class CreateProyectosTable extends Migration
             <p style="text-align:right"><span style="font-size:10pt"><span style="font-family:Arial"><span style="color:#000000">Fecha de publicaci&oacute;n de art&iacute;culos: febrero de 2021</span></span></span></p>
             
             ');
+            $table->string('descripcion')->nullable();
             $table->enum('estatus',[0,1])->default(0);
             $table->timestamps();
         });
