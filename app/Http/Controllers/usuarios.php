@@ -54,7 +54,7 @@ class usuarios extends Controller
             
             $request->session()->regenerate();
             if($credenciales['password'] == '20212022'){
-            return redirect()->route('welcome')->with('alert','Tienes una contraseña por defecto por favor cambila!');
+            return redirect()->route('welcome')->with('alert','Tienes una contraseña por defecto por favor cambiala!');
             }
             
             return redirect()->route('welcome');
@@ -134,7 +134,7 @@ class usuarios extends Controller
             // $user->email = $request->email;
             $user->save();
             // $user->syncRoles($request['roles']);
-        return back()->with('success','cambios guardados');;
+        return back()->with('success','cambios guardados');
         }
 
 
@@ -158,6 +158,12 @@ class usuarios extends Controller
            User::where('id',$request['id'])->update(['password' => Hash::make($request['newPass'])]);
         return redirect()->route('password')->with('info','Se completo el cambio de contraseña');
         }
+
+        public function passwordReset(Request $request){
+            // return $request;
+            User::where('id',$request['id'])->update(['password' => Hash::make('20212022')]);
+        return back()->with('success','Se completo el cambio de contraseña');
+        }
     
         public function userDelete(Request $request){
             //  return $request->id;
@@ -177,7 +183,7 @@ class usuarios extends Controller
     
         
         public function roles(){
-            $roles= Role::all();
+            $roles= Role::where('name','!=','admin')->get();
     
             return view('vistas.roleList',compact('roles'));
     
@@ -192,19 +198,21 @@ class usuarios extends Controller
     
         public function editRol($id){
             $role = Role::find($id);
-            $permN = $role->getPermissionNames();
-            $permisos = Permission::all();
-    
-    
-            return view('editRole',compact('role','permN','permisos'));
+            $permN =  $role->getPermissionNames();
+            $permisos = Permission::where('name','!=','home')->where('name','!=','userAdmin')->get();
+            // return $role->id;
+            // return $permN;
+            // return $permisos;
+            return view('vistas.editRole',compact('role','permN','permisos'));
         }
     
         public function updateRol(Request $request){
-            Role::where('id',$request->id)->update(['name' => $request->name ]);
+            // return $request;
+            // Role::where('id',$request->id)->update(['name' => $request->name ]);
             $role = Role::find($request->id);
     
-            $role->syncPermissions($request['permisos']);
-            return redirect()->route('rolespermisos');
+            $role->syncPermissions($request['nameP']);
+            return back()->with('success','cambios guardados');
         }
         
 

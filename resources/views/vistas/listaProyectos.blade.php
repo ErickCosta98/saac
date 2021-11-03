@@ -54,7 +54,7 @@
 @section('js')
 <script>  
   $(document).ready(function() {
-    var ruta = "proyectos/lista"  ;
+    var ruta = "index.php/proyectos/lista"  ;
     // console.log(ruta)
    var tabla = $('#tabla').DataTable( {
           responsive:true,

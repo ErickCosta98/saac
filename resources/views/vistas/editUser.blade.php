@@ -61,12 +61,38 @@
                 <div class="text-center">
                     <br>
                 <input  class="btn btn-success" type="submit" value="Guardar">
+                <a class="btn btn-danger" href="{{ route('passwordReset', ['id'=>$user->id]) }}">Reset Password</a>
             </div>
             </form>
+
 </div>
 </div>
     </div>
 </div>
 
 
+@endsection
+@section('js')
+
+<script>  
+$(function(){
+    
+    @if(Session::has('error'))
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{ Session::get("error") }}',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    @endif
+    @if(Session::has('success'))
+    Swal.fire({
+    icon: 'success',
+    title: 'Listo! :',
+    text: '{{ Session::get("success") }}',
+})
+@endif
+});
+    </script>
 @endsection

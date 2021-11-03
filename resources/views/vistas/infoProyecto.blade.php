@@ -42,7 +42,7 @@
                         @if ($proyecto->id != Auth::user()->id)
                         <tr>
                           <td>{{$proyecto->nombre}}</td>
-                          <td>{{$proyecto->apelPat." ".$proyecto->apelPat}}</td>
+                          <td>{{$proyecto->apelPat." ".$proyecto->apelMat}}</td>
                           <td>{{$proyecto->rol}}</td>
                           @if ($proyecto->estatus == '2')
                           <td>

@@ -37,7 +37,7 @@
       <footer class="py-4 bg-light mt-auto fixed-bottom">
           <div class="container-fluid px-4">
               <div class="d-flex align-items-center justify-content-between small">
-                  <div class="text-muted">DESARROLLADO POR ERICK HERNANDEZ</div>
+                  <div class="text-muted">DEV: ISC. ERICK HERNANDEZ</div>
                  
               </div>
           </div>

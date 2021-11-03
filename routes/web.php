@@ -4,8 +4,6 @@ use App\Http\Controllers\editor;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\usuarios;
 use App\Http\Controllers\proyectosController;
-use App\Models\proyectos;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,13 +34,15 @@ Route::get('/usuarios/editus/{id}',[usuarios::class,'userEdit1'])->name('userEdi
 Route::put('/usuarios/update/{user}',[usuarios::class,'userUpdate'])->name('userUpdate')->middleware('can:registroUsuario');
 Route::put('/usuarios/updateus/{user}',[usuarios::class,'userUpdate1'])->name('userUpdate1')->middleware('auth');
 Route::view('/password', 'vistas.password')->name('password')->middleware('auth');
-Route::post('/usuarios/updatepassword',[usuarios::class,'userUpdatePassword'])->name('userUpdatepass')->middleware('can:registroUsuario');
+Route::post('/usuarios/updatepassword',[usuarios::class,'userUpdatePassword'])->name('userUpdatepass')->middleware('auth');
+Route::get('/usuarios/resetPassword',[usuarios::class,'passwordReset'])->name('passwordReset')->middleware('can:userAdmin');
+
 Route::get('/usuarios/userdelete', [usuarios::class,'userDelete'])->name('userDelete')->middleware('can:registroUsuario');
 // Route::get('/usuarios/useractive/{id}/{listas}', [usuarios::class,'userActive'])->name('userActive')->middleware('can:userAdmin');
 //fin rutas usuario
 Route::get('/roles', [usuarios::class,'roles'])->name('roleList')->middleware('can:userAdmin');
 Route::post('/rolespermisos/nuevoRol',[usuarios::class,'crearRol'])->name('nuevoRol')->middleware('can:userAdmin');
-// Route::post('/usuarios/rolespermisos/nuevoPermiso',[usuarios::class,'crearPermiso'])->name('nuevoPermiso')->middleware('auth');
+Route::post('/usuarios/rolespermisos/nuevoPermiso',[usuarios::class,'crearPermiso'])->name('nuevoPermiso')->middleware('auth');
 Route::get('/rolespermisos/editRol/{id}',[usuarios::class,'editRol'])->name('roleEdit')->middleware('can:userAdmin');
 Route::post('/rolespermisos/updateRol',[usuarios::class,'updateRol'])->name('updateRol')->middleware('can:userAdmin');
 

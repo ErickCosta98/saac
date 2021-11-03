@@ -51,7 +51,7 @@
 <script>  
 $(document).ready(function() {
   var lista = getQueryVariable('listas');
-  var ruta = "usuarios/info?listas=" + lista ;
+  var ruta = "index.php/usuarios/info?listas=" + lista ;
   // console.log(ruta)
  var tabla = $('#tabla').DataTable( {
         responsive:true,
