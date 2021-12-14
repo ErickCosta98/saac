@@ -20,10 +20,10 @@ class proyectosController extends Controller
         $user = User::find(Auth::user()->id);
        
         if ($user->hasRole('Verificador|Admin')) {
-            $proyectos = proyectos::select('codigo','nombre')->where('estatus','0');
+            $proyectos = proyectos::select('*')->where('estatus','0');
             return datatables()->of($proyectos)->toJson();
         }
-        $proyectos = DB::select("select proyectos.codigo, proyectos.nombre from proyectos inner join users_proyectos on users_proyectos.fk_userid = ? and users_proyectos.estatus = '1' and proyectos.estatus = '0' and proyectos.id=users_proyectos.fk_proyectoid", [Auth::user()->id]);
+        $proyectos = DB::select("select proyectos.* from proyectos inner join users_proyectos on users_proyectos.fk_userid = ? and users_proyectos.estatus = '1' and proyectos.estatus = '0' and proyectos.id=users_proyectos.fk_proyectoid", [Auth::user()->id]);
         return datatables()->of($proyectos)->toJson();
 
     }
@@ -308,5 +308,12 @@ class proyectosController extends Controller
         return view('vistas.page',compact('proyecto'));
 
 
+    }
+
+    public function deleteProyecto(Request $request){
+        DB::delete('delete from users_proyectos where codigo = ?', [$request->codigo]);
+        DB::delete('delete from proyectos where codigo = ?', [$request->codigo]);
+        
+        return response()->json('Eliminado');
     }
 }

@@ -22,6 +22,8 @@
       <tr>
         <th>codigo</th>
         <th>Nombre</th>
+        <th>Fecha de creacion</th>
+        <th>Ultima actualizacion</th>
         <th>acciones</th>
         {{-- @can('authProyectos')
         <th>Estado</th>     
@@ -67,7 +69,9 @@
           columns:[
             {data:'codigo'},
             {data:'nombre'},
-            {defaultContent:"<button  type='button' class='btn btn-primary' id='btnCont'>Contenido</button>@hasanyrole('Profesor|Verificador|Admin')<button  type='button' id='btnInfo' class='btn btn-warning'>informacion</a>@endhasanyrole"},
+            {data:'created_at'},
+            {data:'updated_at'},
+            {defaultContent:"<button  type='button' class='btn btn-primary' id='btnCont'>Contenido</button>@hasanyrole('Profesor|Verificador|Admin')<button  type='button' id='btnInfo' class='btn btn-warning'>informacion</a>@endhasanyrole @hasanyrole('Admin')<button  type='button' id='btnDelete' class='btn btn-danger'>Eliminar</a>@endhasanyrole"},
           ],
       } );
       
@@ -92,6 +96,56 @@
   
              
       } );
+      $('#tabla').on('click','#btnDelete' ,function () //Al hacer click sobre el boton button.form de la linea de arriba
+          {
+            var data_form = tabla.row($(this).parents("tr")).data();
+              var codigo = data_form['codigo']
+         
+             var ruta = `{{ route('deleteProyecto') }}`;
+            //  console.log(ruta)
+             const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+  })
+  
+  swalWithBootstrapButtons.fire({
+    title: 'Estas seguro de borrar este proyecto?',
+    text: "No se podra revertir",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Si',
+    cancelButtonText: 'No',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "get",
+        url: ruta,
+        data: "codigo=" + codigo,
+        success: function (data) {
+          console.log(data)
+          swalWithBootstrapButtons.fire(
+        'Proyecto Eliminado!',
+      )    
+      tabla.ajax.reload(null,false)
+        }
+      });
+      
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelado',
+  
+      )
+    }
+  })
+  } );
+
   } );
   function getQueryVariable(variable) {
      var query = window.location.search.substring(1);

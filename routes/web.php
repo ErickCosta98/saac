@@ -60,6 +60,8 @@ Route::post('/proyecto/unirse',[proyectosController::class,'unirseProyecto'])->n
 Route::get('/proyecto/aceptarAlumno',[proyectosController::class,'aceptarAlumno'])->name('aceptarAlumno')->middleware('auth');
 Route::get('/proyecto/noaceptarAlumno',[proyectosController::class,'noaceptarAlumno'])->name('noaceptarAlumno')->middleware('auth');
 Route::get('/proyecto/aceptar',[proyectosController::class,'aceptarProyecto'])->name('Aceptarproyecto')->middleware('auth');
+Route::get('/proyecto/delete',[proyectosController::class,'deleteProyecto'])->name('deleteProyecto')->middleware('auth');
+
 Route::get('/proyecto/{codigo}',[proyectosController::class,'verProyectopage'])->name('verProyectoa');
 
 

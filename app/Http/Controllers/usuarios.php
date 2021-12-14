@@ -207,11 +207,14 @@ class usuarios extends Controller
         }
     
         public function updateRol(Request $request){
-            // return $request;
+            $arr = [];
+            $arr = $request->nameP;
+            array_push($arr,'home');
+            // return $arr;
             // Role::where('id',$request->id)->update(['name' => $request->name ]);
             $role = Role::find($request->id);
     
-            $role->syncPermissions($request['nameP']);
+            $role->syncPermissions($arr);
             return back()->with('success','cambios guardados');
         }
         

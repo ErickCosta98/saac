@@ -29,6 +29,13 @@
    <br>
     @endcan
     
+    @can('userAdmin')
+    <div class="text-center ">
+      <button id="btnDelete" class="btn btn-outline-danger" value="{{$datos[0]->codigo}}">Borrar</button>
+   </div>
+   <br>
+    @endcan
+    
     
 </div>
 <script>
@@ -146,6 +153,56 @@
         'Proyecto aceptado!',
       )    
         location.href = `{{ route('welcome') }}`;
+      
+        }
+      });
+      
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelado',
+  
+      )
+    }
+  })
+  } );
+
+  $('#btnDelete').on('click', function () //Al hacer click sobre el boton button.form de la linea de arriba
+          {
+              var codigo = document.getElementById('btnDelete').value
+         
+             var ruta = `{{ route('deleteProyecto') }}`;
+            //  console.log(ruta)
+             const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+  })
+  
+  swalWithBootstrapButtons.fire({
+    title: 'Estas seguro de borrar este proyecto?',
+    text: "No se podra revertir",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Si',
+    cancelButtonText: 'No',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "get",
+        url: ruta,
+        data: "codigo=" + codigo,
+        success: function (data) {
+          console.log(data)
+          swalWithBootstrapButtons.fire(
+        'Proyecto Eliminado!',
+      )    
+        location.href = `{{ route('proyectoList') }}`;
       
         }
       });
